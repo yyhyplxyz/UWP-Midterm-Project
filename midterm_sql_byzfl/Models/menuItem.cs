@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace midterm_project.Models
 {
@@ -15,6 +16,10 @@ namespace midterm_project.Models
         
         public string menuName { get; set; } //菜单名 （主键）
         public string SQLString { get; set; }
+        public string Category { get; set; }
+        public string description { get; set; }
+        public string Image { get; set; }
+        public string price { get; set; }
 
         //两个链表，分别储存一道菜对应的每一种材料和数量
         public List <string> materialName { get; set; }
@@ -27,7 +32,11 @@ namespace midterm_project.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public menuItem() { }
+        public menuItem()
+        {
+
+        }
+      
 
         //构造函数，给定菜名，材料链表和数量链表
         public menuItem(string Name, List<string> MaterialName, List<double> MaterialNumber)
@@ -55,6 +64,7 @@ namespace midterm_project.Models
             }
             SQLString = StringFromSQL;
         }
+
         public string generateSQLSavingString()
         {
             if (SQLString != null)
@@ -68,5 +78,36 @@ namespace midterm_project.Models
             SQLString = res;
             return res;
         }
+    }
+    public class mymenuManager
+    {
+        public static void Getmenus(string category, ObservableCollection<menuItem> menuItems)
+        {
+            var allItems = getmenuItems();
+
+            var filteredmenuItems = allItems.Where(p => p.Category == category).ToList();
+
+            menuItems.Clear();
+
+            filteredmenuItems.ForEach(p => menuItems.Add(p));
+        }
+
+        private static List<menuItem> getmenuItems()
+        {
+            var items = new List<menuItem>();
+
+            items.Add(new menuItem() { menuName = "23333", Category="eastern", description= "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "eastern", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "eastern",  description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "eastern",  description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
+
+
+            return items;
+        }
+
     }
 }

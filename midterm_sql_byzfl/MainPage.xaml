@@ -17,6 +17,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" x:Name="testMaterial" Content="Material" Click="testMaterial_Click"/>
             <TextBlock Grid.Row="1" x:Name="test" FontSize="6"/>
@@ -25,6 +26,10 @@
             <Button Grid.Row="6" x:Name="clearDatabase" Content="clear database" Click="clearDatabase_Click"/>
             <TextBlock Grid.Row="5" x:Name="test3" FontSize="6"/>
             <Button Grid.Row="4" x:Name="testUser" Content="User" Click="testUser_Click"/>
+            <HyperlinkButton Grid.Row="7" Content="Click to go to menu page"
+                 Click="HyperlinkButton_Click"
+                 HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
+    
 </Page>

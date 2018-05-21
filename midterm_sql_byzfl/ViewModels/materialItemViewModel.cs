@@ -12,5 +12,6 @@ namespace midterm_project.ViewModels
     public class materialItemViewModel
     {
         //请根据数据绑定的实际情况，调用manager中的函数，编写这部分的代码，辛苦啦
+
     }
 }

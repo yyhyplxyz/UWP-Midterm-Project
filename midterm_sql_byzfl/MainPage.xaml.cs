@@ -168,5 +168,10 @@ namespace midterm_project
             result += "\n";
             test3.Text = result;
         }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(midterm_sql_byzfl.ServicePage));
+        }
     }
 }
