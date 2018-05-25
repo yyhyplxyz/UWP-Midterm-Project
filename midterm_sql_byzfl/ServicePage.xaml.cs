@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using midterm_sql_byzfl.Utils;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -26,11 +28,25 @@ namespace midterm_sql_byzfl
     {
 
         private ObservableCollection<menuItem> menuItems;
+        private userItem thisuser;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            thisuser = (userItem)e.Parameter;
+
+            // parameters.Name
+            // parameters.Text
+            // ...
+        }
 
         public ServicePage()
         {
             this.InitializeComponent();
             menuItems = new ObservableCollection<menuItem>();
+            UserName.Text = "Hello ";
+            //+ thisuser.UserName;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -55,11 +71,63 @@ namespace midterm_sql_byzfl
                 mymenuManager.Getmenus("drink", menuItems);
                 TitleTextBlock.Text = "Drink";
             }
+            else if (ADD.IsSelected)
+            {
+                myhelp();
+            }
         }
+        private async Task myhelp()
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Notice",
+                Content = "Are you sure you want to login with this device later?",
+                IsPrimaryButtonEnabled = true,
+                PrimaryButtonText = "OK",
+                SecondaryButtonText = "cancel",
+             
+            };
+            dialog.PrimaryButtonClick += (_s, _e) => { SignInPassport(); };
 
+            await dialog.ShowAsync();
+        }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Eastern_Food.IsSelected = true;
+        }
+
+        private async void SignInPassport()
+        {
+            if (await MicrosoftPassportHelper.MicrosoftPassportAvailableCheckAsync())
+            {
+                if(await MicrosoftPassportHelper.CreatePassportKeyAsync(thisuser.UserName))
+                {
+                    var _account = AccountHelper.AddAccount(thisuser.UserName);
+
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Notice",
+                        Content = "You have successfully added this list",
+                        IsPrimaryButtonEnabled = true,
+                        PrimaryButtonText = "OK",
+
+                    };
+                    await dialog.ShowAsync();
+                }
+            }
+            else
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "Microsoft Passport is not setup!\n" +
+                    "Please go to Windows Settings and set up a PIN to use it.",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+
+                };
+                await dialog.ShowAsync();
+            }
         }
     }
 }

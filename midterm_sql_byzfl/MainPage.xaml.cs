@@ -173,5 +173,15 @@ namespace midterm_project
         {
             this.Frame.Navigate(typeof(midterm_sql_byzfl.ServicePage));
         }
+
+        private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(midterm_sql_byzfl.Login));
+        }
+
+        private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(midterm_sql_byzfl.userlistpage));
+        }
     }
 }

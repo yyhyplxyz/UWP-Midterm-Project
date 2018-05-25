@@ -37,7 +37,10 @@ namespace midterm_project.Services
                 Insert(new userItem("root", "root", 0));
             }
         }
+        public userManager()
+        {
 
+        }
         public static bool Insert(userItem inputUserItem)
         {
             if (isExist(inputUserItem.UserName))
@@ -184,16 +187,23 @@ namespace midterm_project.Services
         //判断一个人是否存在
         public static bool isExist(string inputUserName)
         {
-            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName FROM UserDataBase WHERE UserName = ? "))
+            try
             {
-                statement.Bind(1, inputUserName);
-                while (SQLiteResult.ROW == statement.Step())
+                using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName FROM UserDataBase WHERE UserName = ? "))
                 {
-                    if ((string)statement[0] == inputUserName)
+                    statement.Bind(1, inputUserName);
+                    while (SQLiteResult.ROW == statement.Step())
                     {
-                        return true;
+                        if ((string)statement[0] == inputUserName)
+                        {
+                            return true;
+                        }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                return false;
             }
             return false;
         }
@@ -212,5 +222,6 @@ namespace midterm_project.Services
                 throw ex;
             }
         }
+       
     }
 }
