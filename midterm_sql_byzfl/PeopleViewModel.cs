@@ -8,30 +8,47 @@ using System.Xml.Linq;
 using System.Reflection;
 using midterm_project.Models;
 using midterm_project.Services;
+using System.Collections.ObjectModel;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace midterm_sql_byzfl
 {
     public class PeopleViewModel
     {
-       public  List<userItem> staticData;
-
+       public  ObservableCollection<userItem> staticData;
+       
        public  PeopleViewModel()
         {
-            staticData = new List<userItem>();
+            //staticData = new ObservableCollection<userItem>();
             Load();
         }
-
         public IList<userItem> Data
         {
             get
             {
                 return staticData;
             }
+            set
+            {
+                staticData = (ObservableCollection<userItem>)value;
+                //staticData.Add(new userItem("22", "22", 1));
+            }
         }
 
         public void Load()
         {
-            staticData = userManager.GetAItem();
+            staticData = new ObservableCollection<userItem>(userManager.GetAItem());
+        }
+
+        public async Task loadAsync()
+        {
+            //await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                staticData.Clear();
+                staticData = new ObservableCollection<userItem>(userManager.GetAItem());
+                //IsLoading = false;
+            });
         }
     }
 

@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.Helpers;
+using midterm_project.Services;
 
 namespace midterm_project.Models
 {
@@ -20,6 +22,7 @@ namespace midterm_project.Models
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+            
         }
         public userItem() { }
 
@@ -29,5 +32,7 @@ namespace midterm_project.Models
             Password = inputPassword;
             Authority = inputAuthority;
         }
+
+       
     }
 }

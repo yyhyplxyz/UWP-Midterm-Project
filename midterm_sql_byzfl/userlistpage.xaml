@@ -17,31 +17,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <CommandBar Grid.Row="0"
-                x:Name="mainCommandBar"
-                HorizontalAlignment="Stretch"
-                Background="Transparent"
-                Loaded="CommandBar_Loaded"
-                RelativePanel.LeftOf="
-                "
-                RelativePanel.RightOf="PageTitle">
-            <AppBarButton
-                    Click="ViewDetails_Click"
-                    Icon="Contact"
-                    Label="View details"
-                    ToolTipService.ToolTip="View details" />
-            <AppBarButton
-                    Click="AddOrder_Click"
-                    Icon="Shop"
-                    Label="Add order"
-                    ToolTipService.ToolTip="Add order" />
-            <AppBarSeparator />
-            <AppBarButton
-                    Click="CreateCustomer_Click"
-                    Icon="Add"
-                    Label="New"
-                    ToolTipService.ToolTip="New customer" />
-        </CommandBar>
+       
         <RelativePanel>
             <Button Name="HamburgerButton" 
                     RelativePanel.AlignLeftWithPanel="True"
@@ -60,16 +36,10 @@
                        FontWeight="Bold"
                        Margin="20,10,0,0" />
 
-            <TextBlock Name="UserName" 
-                       RelativePanel.LeftOf="MyAutoSuggestBox"
-                       FontSize="13"
-                       FontWeight="Bold"
-                       Margin="20,10,0,0" />
-
             <AutoSuggestBox Name="MyAutoSuggestBox"
                             QueryIcon="Find" 
                             PlaceholderText="Search" 
-                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.LeftOf="HamburgerButton"
                             Width="200"
                             Margin="0,5,10,0" />
         </RelativePanel>
@@ -149,6 +119,7 @@
                         </GridView>
                     </SemanticZoom.ZoomedOutView>
                 </SemanticZoom>
+                
             </SplitView.Content>
         </SplitView>
        

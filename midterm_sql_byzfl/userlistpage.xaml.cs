@@ -28,7 +28,6 @@ using System.Windows;
 
 
 
-
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
 namespace midterm_sql_byzfl
@@ -59,7 +58,9 @@ namespace midterm_sql_byzfl
                     case "Authority":
                         a.Authority = Convert.ToInt32(bool.Parse(value));
                         break;
+
                 }
+                
             };
 
             Action<userItem> elementAction = (q) =>
@@ -80,12 +81,11 @@ namespace midterm_sql_byzfl
         {
             InitializeComponent();
             this.DataContext = new EditingViewModel();
-
         }
 
         private void ViewDetails_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void AddOrder_Click(object sender, RoutedEventArgs e)

@@ -97,6 +97,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseCommand.cs" />
+    <Compile Include="CollapsibleSearchBox.xaml.cs">
+      <DependentUpon>CollapsibleSearchBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
@@ -163,9 +166,6 @@
     </Compile>
     <Compile Include="Utils\AccountHelper.cs" />
     <Compile Include="Utils\MicrosoftPassportHelper.cs" />
-    <Compile Include="ViewModels\materialItemViewModel.cs" />
-    <Compile Include="ViewModels\menuItemViewModel.cs" />
-    <Compile Include="ViewModels\userItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -191,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CollapsibleSearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

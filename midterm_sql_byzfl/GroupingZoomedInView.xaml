@@ -12,25 +12,61 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid.Resources>
-            <local:PeopleViewModel x:Key="Model"/>
-        </Grid.Resources>
-        <telerikGrid:RadDataGrid x:Name="dataGrid" ItemsSource="{Binding Data,Source={StaticResource Model}}" RowHeight="45"
-                                 AutoGenerateColumns="False" FontSize="{StaticResource ControlContentThemeFontSize}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CommandBar Grid.Row="0"
+                x:Name="mainCommandBar"
+                HorizontalAlignment="Stretch"
+                Background="Transparent"
+                Loaded="CommandBar_Loaded"
+                
+               >
+            <AppBarButton
+                    Click="ViewDetails_Click"
+                    Icon="Contact"
+                    Label="View details"
+                    ToolTipService.ToolTip="View details" />
+            <AppBarButton
+                    Click="delete_Click"
+                    Icon="Shop"
+                    Label="Add order"
+                    ToolTipService.ToolTip="Add order" />
+            <AppBarSeparator />
+            <AppBarButton
+                    Click="CreateCustomer_Click"
+                    Icon="Add"
+                    Label="New"
+                    ToolTipService.ToolTip="New customer" />
+            
+            
+        </CommandBar>
+        <local:CollapsibleSearchBox
+                x:Name="CustomerSearchBox"
+                Width="240"
+                Margin="12,8,12,0"
+                Loaded="CustomerSearchBox_Loaded"
+                RelativePanel.AlignRightWithPanel="True" />
+        <telerikGrid:RadDataGrid Grid.Row="1" x:Name="dataGrid" ItemsSource="{x:Bind peopleViewModel.staticData, Mode=TwoWay}" RowHeight="45"
+                                 AutoGenerateColumns="False" FontSize="{StaticResource ControlContentThemeFontSize}" 
+                          SelectionMode="Multiple"  >
             <telerikGrid:RadDataGrid.GroupDescriptors>
-                <telerikData:DelegateGroupDescriptor DisplayContent="First character">
+                <telerikData:DelegateGroupDescriptor DisplayContent="First character" >
                     <telerikData:DelegateGroupDescriptor.KeyLookup>
                         <local:AlpabeticGroupKeyLookup/>
                     </telerikData:DelegateGroupDescriptor.KeyLookup>
                 </telerikData:DelegateGroupDescriptor>
             </telerikGrid:RadDataGrid.GroupDescriptors>
-            <telerikGrid:RadDataGrid.Commands>
-                <local:FlyoutGroupHeaderTapCommand/>
+            <telerikGrid:RadDataGrid.Commands >
+                <local:FlyoutGroupHeaderTapCommand />
+                <local:CustomCommitEditCommand />
+                <local:CustomBeginEditCommand />
             </telerikGrid:RadDataGrid.Commands>
             <telerikGrid:RadDataGrid.Columns>
-                <telerikGrid:DataGridTextColumn PropertyName="UserName"/>
-                <telerikGrid:DataGridTextColumn PropertyName="Password"/>
-                <telerikGrid:DataGridTextColumn PropertyName="Authority"/>
+                <telerikGrid:DataGridTextColumn PropertyName="UserName"  />
+                <telerikGrid:DataGridTextColumn PropertyName="Password"  />
+                <telerikGrid:DataGridTextColumn PropertyName="Authority" />
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
         <VisualStateManager.VisualStateGroups>
