@@ -93,6 +93,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AlpabeticGroupKeyLookup.cs" />
+    <Compile Include="AlpabeticGroupKeyLookup_material.cs" />
+    <Compile Include="AlpabeticGroupKeyLookup_menu.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -106,15 +108,23 @@
     <Compile Include="GroupingZoomedInView.xaml.cs">
       <DependentUpon>GroupingZoomedInView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GroupingZoomedInViewmaterial.xaml.cs">
+      <DependentUpon>GroupingZoomedInViewmaterial.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupingZoomedInViewmenu.xaml.cs">
+      <DependentUpon>GroupingZoomedInViewmenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="materialViewModel.cs" />
     <Compile Include="MenuItemControl1.xaml.cs">
       <DependentUpon>MenuItemControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="menuviewmodel.cs" />
     <Compile Include="Models\Accountofdevice.cs" />
     <Compile Include="Models\materialItem.cs" />
     <Compile Include="Models\menuItem.cs" />
@@ -200,6 +210,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GroupingZoomedInView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GroupingZoomedInViewmaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GroupingZoomedInViewmenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

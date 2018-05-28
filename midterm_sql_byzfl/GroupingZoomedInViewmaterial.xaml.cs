@@ -20,21 +20,22 @@ using Telerik.Core;
 using midterm_sql_byzfl;
 using Microsoft.Toolkit.Uwp.Helpers;
 using midterm_project.Services;
+using System.Diagnostics;
 
 
 //https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
 namespace midterm_sql_byzfl
 {
-    public sealed partial class GroupingZoomedInView : UserControl, ISemanticZoomInformation
+    public sealed partial class GroupingZoomedInViewmaterial : UserControl, ISemanticZoomInformation
     {
-        PeopleViewModel peopleViewModel;
-       
-        public GroupingZoomedInView()
+        materialViewModel peopleViewModel;
+
+        public GroupingZoomedInViewmaterial()
         {
             this.InitializeComponent();
-            peopleViewModel = new PeopleViewModel();
-            //oldview = new PeopleViewModel();
+            peopleViewModel = new materialViewModel();
+            //oldview = new materialViewModel();
             this.DataContext = peopleViewModel;
         }
 
@@ -77,7 +78,7 @@ namespace midterm_sql_byzfl
 
         public void MakeVisible(SemanticZoomLocation item)
         {
-           
+
         }
 
         public SemanticZoom SemanticZoomOwner
@@ -108,23 +109,26 @@ namespace midterm_sql_byzfl
 
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            userItem newItem = new userItem("333", "233", 1);
+            //string Name, double Number, string Unit, DateTimeOffset PurchaseDate, double WarrantPeriod, double Price, string Comment
+            materialItem newItem = new materialItem("33357", 2, "233", DateTimeOffset.UtcNow, 1, 2, "333");
             peopleViewModel.staticData.Add(newItem);
             //var i = dataGrid.SelectedItem;
             //dataGrid.ScrollItemIntoView(newItem);
             dataGrid.SelectItem(newItem);
-           // dataGrid.BeginEdit(dataGrid.SelectedItem);
+            // dataGrid.BeginEdit(dataGrid.SelectedItem);
+
             dataGrid.ScrollItemIntoView(newItem, () =>
             {
                 try
                 {
                     dataGrid.BeginEdit(dataGrid.SelectedItem);
                 }
-                catch
+                catch (Exception gg)
                 {
-
+                    Debug.Print(gg.Message);
                 }
             });
+            
         }
 
         private void ViewDetails_Click(object sender, RoutedEventArgs e)
@@ -139,18 +143,19 @@ namespace midterm_sql_byzfl
 
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
-            
+
         }
         private void CustomerSearchBox_Loaded(object sender, RoutedEventArgs e)
         {
             if (CustomerSearchBox != null)
             {
+
                 CustomerSearchBox.AutoSuggestBox.QuerySubmitted += CustomerSearchBox_QuerySubmitted;
                 CustomerSearchBox.AutoSuggestBox.TextChanged += CustomerSearchBox_TextChanged;
-                CustomerSearchBox.AutoSuggestBox.PlaceholderText = "Search users...";
+                CustomerSearchBox.AutoSuggestBox.PlaceholderText = "Search material...";
             }
 
-            
+
         }
         private async void CustomerSearchBox_TextChanged(AutoSuggestBox sender,
             AutoSuggestBoxTextChangedEventArgs args)
@@ -159,7 +164,7 @@ namespace midterm_sql_byzfl
             {
                 if (String.IsNullOrEmpty(sender.Text))
                 {
-                   // peopleViewModel.Load();
+                    // peopleViewModel.Load();
                     await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
                        await peopleViewModel.loadAsync());
                     peopleViewModel.Load();
@@ -171,11 +176,14 @@ namespace midterm_sql_byzfl
                         StringSplitOptions.RemoveEmptyEntries);
                     sender.ItemsSource = peopleViewModel.staticData
                         .Where(x => parameters.Any(y =>
-                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) ))
+                            x.name.StartsWith(y, StringComparison.OrdinalIgnoreCase) ||
+                            x.comment.StartsWith(y, StringComparison.OrdinalIgnoreCase)
+                          ))
                         .OrderByDescending(x => parameters.Count(y =>
-                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) 
+                            x.name.StartsWith(y, StringComparison.OrdinalIgnoreCase) ||
+                            x.comment.StartsWith(y, StringComparison.OrdinalIgnoreCase)
                            ))
-                        .Select(x => $"{x.UserName} {x.Password}");
+                        .Select(x => $"{x.name} {x.unit}");
                 }
             }
         }
@@ -184,8 +192,8 @@ namespace midterm_sql_byzfl
         {
             if (String.IsNullOrEmpty(args.QueryText))
             {
-               await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
-                   await peopleViewModel.loadAsync());
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                    await peopleViewModel.loadAsync());
                 //sender.ItemsSource = peopleViewModel.staticData;
             }
             else
@@ -193,12 +201,14 @@ namespace midterm_sql_byzfl
                 string[] parameters = sender.Text.Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries);
 
-                var matches =peopleViewModel.staticData.Where(x => parameters
-                    .Any(y =>
-                        x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)
-                       ))
+                var matches = peopleViewModel.staticData.Where(x => parameters
+                     .Any(y =>
+                         x.name.StartsWith(y, StringComparison.OrdinalIgnoreCase) ||
+                            x.comment.StartsWith(y, StringComparison.OrdinalIgnoreCase)
+                        ))
                     .OrderByDescending(x => parameters.Count(y =>
-                        x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) ))
+                        x.name.StartsWith(y, StringComparison.OrdinalIgnoreCase) ||
+                            x.comment.StartsWith(y, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
 
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
@@ -214,75 +224,20 @@ namespace midterm_sql_byzfl
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
-            if(dataGrid.SelectedItem != null)
+            if (dataGrid.SelectedItem != null)
             {
-                userItem i = (userItem)dataGrid.SelectedItem;
-                userManager.Remove(i.UserName);
+                materialItem i = (materialItem)dataGrid.SelectedItem;
+                materialManager.Remove(i.name);
                 peopleViewModel.staticData.Remove(i);
                 dataGrid.SelectedItem = null;
             }
         }
     }
 
-    public class FlyoutGroupHeaderTapCommand : DataGridCommand
+  
+    public class CustomCommitEditCommand_material : DataGridCommand
     {
-        public FlyoutGroupHeaderTapCommand()
-        {
-            this.Id = CommandId.FlyoutGroupHeaderTap;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return parameter is FlyoutGroupHeaderTapContext;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as FlyoutGroupHeaderTapContext;
-            if (context.Descriptor is DelegateGroupDescriptor && context.Action == DataGridFlyoutGroupHeaderTapAction.RemoveDescriptor)
-            {
-                // do not allow removal of our custom Delegate descriptor
-                return;
-            }
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.FlyoutGroupHeaderTap, parameter);
-        }
-       
-    }
-
-    public class selectviewmodel : ViewModelBase
-    {
-         private ObservableCollection<userItem> selelectedGridItems;
-        public ObservableCollection<userItem> SelelectedGridItems
-        {
-            get { return selelectedGridItems ?? (selelectedGridItems = new ObservableCollection<userItem>()); }
-            set { selelectedGridItems = value;  OnPropertyChanged(); }
-        }
-        public void RadDataGrid_OnSelectionChanged(object sender, DataGridSelectionChangedEventArgs e)
-        {
-            // Add any selected items
-            if (e.AddedItems != null && e.AddedItems.Any())
-            {
-                foreach (userItem item in e.AddedItems)
-                {
-                    if (!SelelectedGridItems.Contains(item))
-                        SelelectedGridItems.Add(item);
-                }
-            }
-
-            // Remove any unselected items
-            if (e.RemovedItems != null && e.RemovedItems.Any())
-            {
-                foreach (userItem item in e.RemovedItems)
-                {
-                    if (SelelectedGridItems.Contains(item))
-                        SelelectedGridItems.Remove(item);
-                }
-            }
-        }
-    }
-    public class CustomCommitEditCommand : DataGridCommand
-    {
-        public CustomCommitEditCommand()
+        public CustomCommitEditCommand_material()
         {
             this.Id = CommandId.CommitEdit;
         }
@@ -295,16 +250,16 @@ namespace midterm_sql_byzfl
         public override void Execute(object parameter)
         {
             var context = parameter as EditContext;
-            var i = (userItem)( context.CellInfo.Item);
-            userManager.Insert(i);
+            var i = (materialItem)(context.CellInfo.Item);
+            materialManager.Insert(i);
             // Executes the default implementation of this command
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
         }
     }
 
-    public class CustomBeginEditCommand : DataGridCommand
+    public class CustomBeginEditCommand_material : DataGridCommand
     {
-        public CustomBeginEditCommand()
+        public CustomBeginEditCommand_material()
         {
             this.Id = CommandId.BeginEdit;
         }
@@ -317,15 +272,15 @@ namespace midterm_sql_byzfl
         public override void Execute(object parameter)
         {
             var context = parameter as EditContext;
-            var i = (userItem)(context.CellInfo.Item);
-            userManager.Remove(i.UserName);
+            var i = (materialItem)(context.CellInfo.Item);
+            materialManager.Remove(i.name);
             // Executes the default implementation of this command
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
         }
     }
-    public class CustomCancleEditCommand : DataGridCommand
+    public class CustomCancleEditCommand_material : DataGridCommand
     {
-        public CustomCancleEditCommand()
+        public CustomCancleEditCommand_material()
         {
             this.Id = CommandId.CancelEdit;
         }
@@ -338,12 +293,12 @@ namespace midterm_sql_byzfl
         public override void Execute(object parameter)
         {
             var context = parameter as EditContext;
-            var i = (userItem)(context.CellInfo.Item);
-            userManager.Insert(i);
+            var i = (materialItem)(context.CellInfo.Item);
+            materialManager.Insert(i);
 
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
         }
 
-       
+
     }
 }

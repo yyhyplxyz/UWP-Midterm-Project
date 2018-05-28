@@ -37,6 +37,11 @@ namespace midterm_project
         public App()
         {
             this.InitializeComponent();
+
+            userManager.BuildDatabase();
+            materialManager.BuildDatabase();
+            menuManager.BuildDatabase();
+
             this.Suspending += OnSuspending;
         }
 

@@ -74,10 +74,10 @@ namespace midterm_sql_byzfl
         public ObservableCollection<userItem> Data { get; set; }
 
     }
-        public sealed partial class userlistpage : Page
+        public sealed partial class materiallistpage : Page
     {
        
-        public userlistpage()
+        public materiallistpage()
         {
             InitializeComponent();
             this.DataContext = new materialEditingViewModel();
@@ -109,27 +109,18 @@ namespace midterm_sql_byzfl
             {
                 //myzoomview.
                 userlistview.Visibility = Visibility.Collapsed;
-                materiallistview.Visibility = Visibility.Visible;
                 // mymenuManager.Getmenus("eastern", menuItems);
-                menulistview.Visibility = Visibility.Collapsed;
-                TitleTextBlock.Text = "原材料";
+                TitleTextBlock.Text = "Original material";
             }
             else if (Western_food.IsSelected)
             {
                 //mymenuManager.Getmenus("western", menuItems);
-                userlistview.Visibility = Visibility.Collapsed;
-                materiallistview.Visibility = Visibility.Collapsed;
-                menulistview.Visibility = Visibility.Visible;
-                TitleTextBlock.Text = "菜单";
+                TitleTextBlock.Text = "Users information";
             }
             else if (Drink.IsSelected)
             {
                 //mymenuManager.Getmenus("drink", menuItems);
-                userlistview.Visibility = Visibility.Visible;
-                materiallistview.Visibility = Visibility.Collapsed;
-                // mymenuManager.Getmenus("eastern", menuItems);
-                menulistview.Visibility = Visibility.Collapsed;
-                TitleTextBlock.Text = "用户信息";
+                TitleTextBlock.Text = "Drink";
             }
             else if (ADD.IsSelected)
             {

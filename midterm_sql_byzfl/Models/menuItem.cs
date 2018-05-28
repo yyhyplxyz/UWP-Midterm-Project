@@ -105,7 +105,6 @@ namespace midterm_project.Models
             items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
             items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
 
-
             return items;
         }
 

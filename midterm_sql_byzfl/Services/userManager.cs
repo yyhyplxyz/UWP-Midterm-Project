@@ -37,10 +37,10 @@ namespace midterm_project.Services
                 Insert(new userItem("root", "root", 0));
             }
         }
-        public userManager()
-        {
-
-        }
+        //public userManager()
+        //{
+        //    BuildDatabase();
+        //}
         public static bool Insert(userItem inputUserItem)
         {
             if (isExist(inputUserItem.UserName))
