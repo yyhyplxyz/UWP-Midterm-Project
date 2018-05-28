@@ -131,15 +131,12 @@ namespace midterm_sql_byzfl
                 menulistview.Visibility = Visibility.Collapsed;
                 TitleTextBlock.Text = "用户信息";
             }
-            else if (ADD.IsSelected)
-            {
-                //myhelp();
-            }
+           
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
     }
 }

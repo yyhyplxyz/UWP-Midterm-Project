@@ -162,7 +162,7 @@ namespace midterm_sql_byzfl
                    // peopleViewModel.Load();
                     await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
                        await peopleViewModel.loadAsync());
-                    peopleViewModel.Load();
+                    //peopleViewModel.Load();
                     sender.ItemsSource = null;
                 }
                 else

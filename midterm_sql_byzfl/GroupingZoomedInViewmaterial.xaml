@@ -22,33 +22,24 @@
                 HorizontalAlignment="Stretch"
                 Background="Transparent"
                 Loaded="CommandBar_Loaded"
-                
                >
             <AppBarButton
-                    Click="ViewDetails_Click"
-                    Icon="Contact"
-                    Label="View details"
-                    ToolTipService.ToolTip="View details" />
-            <AppBarButton
                     Click="delete_Click"
-                    Icon="Shop"
-                    Label="Add order"
-                    ToolTipService.ToolTip="Add order" />
-            <AppBarSeparator />
+                    Icon="Delete"
+                    Label="Delete item"
+                    ToolTipService.ToolTip="Delete item" />
             <AppBarButton
                     Click="CreateCustomer_Click"
                     Icon="Add"
                     Label="New"
-                    ToolTipService.ToolTip="New customer" />
-
-
+                    ToolTipService.ToolTip="New material" />
         </CommandBar>
         <local:CollapsibleSearchBox
                 x:Name="CustomerSearchBox"
                 Width="240"
                 Margin="12,8,12,0"
                 Loaded="CustomerSearchBox_Loaded"
-                RelativePanel.AlignRightWithPanel="True" />
+                RelativePanel.AlignRightWith="mainCommandBar" />
         <telerikGrid:RadDataGrid Grid.Row="1" x:Name="dataGrid" ItemsSource="{x:Bind peopleViewModel.staticData, Mode=TwoWay}" RowHeight="45"
                                  AutoGenerateColumns="False" FontSize="{StaticResource ControlContentThemeFontSize}" 
                           SelectionMode="Multiple"  >

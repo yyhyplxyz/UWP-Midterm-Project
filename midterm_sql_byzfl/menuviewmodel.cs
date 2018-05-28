@@ -46,8 +46,11 @@ namespace midterm_sql_byzfl
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 staticData.Clear();
-                staticData = new ObservableCollection<menuItem>(menuManager.GetItems());
-                //IsLoading = false;
+                var tmp = menuManager.GetItems();
+                foreach (var i in tmp)
+                {
+                    staticData.Add(i);
+                }
             });
         }
     }
