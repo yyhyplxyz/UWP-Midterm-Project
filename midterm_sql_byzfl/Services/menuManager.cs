@@ -29,7 +29,11 @@ namespace midterm_project.Services
             string sql = @"CREATE TABLE IF NOT EXISTS
                          MenuItem (
                                     Name            VARCHAR( 100 ) PRIMARY KEY NOT NULL, 
-                                    Formula         VARCHAR( 1000 )
+                                    Formula         VARCHAR( 1000 ),
+                                    Category        VARCHAR( 100 ),
+                                    Description     VARCHAR( 100 ),
+                                    Image           VARCHAR( 100 ),
+                                    Price           VARCHAR( 100 )
                     );";
             using (var statement = ((App)App.Current).conn.Prepare(sql))
             {
@@ -44,10 +48,14 @@ namespace midterm_project.Services
             // SqlConnection was opened in App.xaml.cs and exposed through property conn
             try
             {
-                using (var custstmt = ((App)App.Current).conn.Prepare("INSERT INTO MenuItem (Name, Formula) VALUES (?, ?)"))
+                using (var custstmt = ((App)App.Current).conn.Prepare("INSERT INTO MenuItem (Name, Formula, Category, Description, Image, Price) VALUES (?, ?, ?, ?, ?, ?)"))
                 {
                     custstmt.Bind(1, aim.menuName);
                     custstmt.Bind(2, aim.generateSQLSavingString());
+                    custstmt.Bind(3, aim.Category);
+                    custstmt.Bind(4, aim.description);
+                    custstmt.Bind(5, aim.Image);
+                    custstmt.Bind(6, aim.price);
                     custstmt.Step();
                 }
             }
@@ -85,11 +93,16 @@ namespace midterm_project.Services
                 return false;
             try
             {                                                           //"UPDATE TodoItem SET Ti = ?, Desc = ?, Time = ?, Pic = ?, Finished = ? WHERE Tid = ?"
-                using (var custstmt = ((App)App.Current).conn.Prepare("update MenuItem set Name = ?, Formula = ? where Name = ?"))
+                                                                        //Name, Formula, Category, Description, Image, Price
+                using (var custstmt = ((App)App.Current).conn.Prepare("update MenuItem set Name = ?, Formula = ?, Category = ?, Description = ?, Image = ?, Price = ? where Name = ?"))
                 {
                     custstmt.Bind(1, newItem.menuName);
                     custstmt.Bind(2, newItem.generateSQLSavingString());
-                    custstmt.Bind(3, oldItemName);
+                    custstmt.Bind(3, newItem.Category);
+                    custstmt.Bind(4, newItem.description);
+                    custstmt.Bind(5, newItem.Image);
+                    custstmt.Bind(6, newItem.price);
+                    custstmt.Bind(7, oldItemName);
                     custstmt.Step();
                 }
             }
@@ -104,13 +117,17 @@ namespace midterm_project.Services
         public static List<menuItem> GetItems()
         {
             List<menuItem> result = new List<menuItem>();
-            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula FROM MenuItem"))
+            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula, Category, Description, Image, Price FROM MenuItem"))
             {
                 while (custstmt.Step() == SQLiteResult.ROW)
                 {
                     menuItem beCheck = new menuItem(
                             (string)custstmt[0],
-                            (string)custstmt[1]
+                            (string)custstmt[1],
+                            (string)custstmt[2],
+                            (string)custstmt[3],
+                            (string)custstmt[4],
+                            (string)custstmt[5]
                         );
                     result.Add(beCheck);
                 }
@@ -122,14 +139,18 @@ namespace midterm_project.Services
         public static menuItem GetAItem(string name)
         {
             menuItem result = null;
-            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula FROM MenuItem WHERE Name = ?"))
+            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula, Category, Description, Image, Price FROM MenuItem WHERE Name = ?"))
             {
                 custstmt.Bind(1, name);
                 while (custstmt.Step() == SQLiteResult.ROW)
                 {
                     result = new menuItem(
                             (string)custstmt[0],
-                            (string)custstmt[1]
+                            (string)custstmt[1],
+                            (string)custstmt[2],
+                            (string)custstmt[3],
+                            (string)custstmt[4],
+                            (string)custstmt[5]
                         );
                 }
             }
@@ -140,14 +161,18 @@ namespace midterm_project.Services
         public static List<menuItem> SerachName(string str)
         {
             List<menuItem> result = new List<menuItem>();
-            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula FROM MenuItem WHERE Name LIKE ?"))
+            using (var custstmt = ((App)App.Current).conn.Prepare("SELECT Name, Formula, Category, Description, Image, Price FROM MenuItem WHERE Name LIKE ?"))
             {
                 custstmt.Bind(1, "%" + str + "%");
                 while (custstmt.Step() == SQLiteResult.ROW)
                 {
                     menuItem beCheck = new menuItem(
                             (string)custstmt[0],
-                            (string)custstmt[1]
+                            (string)custstmt[1],
+                            (string)custstmt[2],
+                            (string)custstmt[3],
+                            (string)custstmt[4],
+                            (string)custstmt[5]
                     );
                     result.Add(beCheck);
                 }

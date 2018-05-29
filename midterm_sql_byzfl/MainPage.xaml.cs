@@ -82,11 +82,11 @@ namespace midterm_project
         private void testMenu_Click(object sender, RoutedEventArgs e)
         {
             string result = "";
-            menuItem t1 = new menuItem("t1", "apple,1.5,banana,2.5,water,3.5,");
-            menuItem t2 = new menuItem("t2", "fuck,1.5,banana,2.5,water,3.5,");
-            menuItem t3 = new menuItem("t3", "apple,1.5,banana,2.5,water,100000,");
-            menuItem t4 = new menuItem("t4", "apple,1.5,banana,2.5,water,100000,");
-            menuItem t5 = new menuItem("t5", "det,1.5,");
+            menuItem t1 = new menuItem("t1", "apple,1.5,banana,2.5,water,3.5,", "a" , "hello", "zzz", "100$");
+            menuItem t2 = new menuItem("t2", "fuck,1.5,banana,2.5,water,3.5,", "a", "hello", "zzz", "100$");
+            menuItem t3 = new menuItem("t3", "apple,1.5,banana,2.5,water,100000,", "a", "hello", "zzz", "100$");
+            menuItem t4 = new menuItem("t4", "apple,1.5,banana,2.5,water,100000,", "a", "hello", "zzz", "100$");
+            menuItem t5 = new menuItem("t5", "det,1.5,", "a", "hello", "zzz", "100$");
             result += t1.generateSQLSavingString();
             menuManager.BuildDatabase();
             menuManager.Insert(t1);
@@ -95,18 +95,23 @@ namespace midterm_project
             menuManager.Insert(t4);
             menuManager.Insert(t5);
             menuManager.Remove("t4");
-            menuManager.Update("t3", new menuItem("t3", "apple,1.5,banana,2.5,water,1999999,"));
+            menuManager.Update("t3", new menuItem("t3", "apple,1.5,banana,2.5,water,1999999,", "a", "hello", "zzz", "100$"));
+            result += "\n" + menuManager.GetAItem("t3").generateFormulaString() + "\n";
             menuManager.ServeMenuItem("t1");
             menuManager.ServeMenuItem("t1");
             var temp = menuManager.ServeMenuItem("t1");
-            List<materialItem> res = materialManager.GetItems(materialManager.SELECTCODE.FRESH);
+            List<menuItem> res = menuManager.GetItems();
             for (int i = 0; i < res.Count; i++)
             {
-                result += res.ElementAt(i).name;
+                result += res.ElementAt(i).menuName;
                 result += "  ";
-                result += res.ElementAt(i).number;
+                result += res.ElementAt(i).SQLString;
                 result += "  ";
-                result += res.ElementAt(i).purchaseDate;
+                result += res.ElementAt(i).description;
+                result += "  ";
+                result += res.ElementAt(i).Category;
+                result += "  ";
+                result += res.ElementAt(i).price;
                 result += "\n";
             }
             result += "=====================\n";

@@ -15,11 +15,13 @@ namespace midterm_project.Models
         private char SPLITCHAR = ',';
         
         public string menuName { get; set; } //菜单名 （主键）
-        public string SQLString { get; set; }
         public string Category { get; set; }
         public string description { get; set; }
         public string Image { get; set; }
         public string price { get; set; }
+
+
+        public string SQLString { get; set; }
 
         //两个链表，分别储存一道菜对应的每一种材料和数量
         public List <string> materialName { get; set; }
@@ -39,17 +41,31 @@ namespace midterm_project.Models
       
 
         //构造函数，给定菜名，材料链表和数量链表
-        public menuItem(string Name, List<string> MaterialName, List<double> MaterialNumber)
+        public menuItem(string Name, List<string> MaterialName, List<double> MaterialNumber, string tcatelogy, string tdescription, string timage, string tprice)
         {
             menuName = Name;
+            Category = tcatelogy;
+            description = tdescription;
+            Image = timage;
+            price = tprice;
             materialName = MaterialName;
             materialNumber = MaterialNumber;
             SQLString = null;
         }
 
-        public menuItem(string Name, string StringFromSQL)
+        //public string menuName { get; set; } //菜单名 （主键）
+        //public string Category { get; set; }
+        //public string description { get; set; }
+        //public string Image { get; set; }
+        //public string price { get; set; }
+        public menuItem(string Name, string StringFromSQL, string tcatelogy, string tdescription, string timage, string tprice)
         {
             menuName = Name;
+            Category = tcatelogy;
+            description = tdescription;
+            Image = timage;
+            price = tprice;
+
             materialName = new List<string>();
             materialNumber = new List<double>();
 
@@ -77,6 +93,22 @@ namespace midterm_project.Models
             }
             SQLString = res;
             return res;
+        }
+
+        public string generateFormulaString()
+        {
+            string result = "";
+            int len = materialName.Count();
+            for(int i = 1; i <= len; i++)
+            {
+                result += "材料" + i + "名称:";
+                result += materialName.ElementAt(i - 1);
+                result += " / 材料" + i + "数量:";
+                result += materialNumber.ElementAt(i - 1) + "";
+                if(i != len)
+                    result += " ; ";
+            }
+            return result;
         }
     }
     public class mymenuManager

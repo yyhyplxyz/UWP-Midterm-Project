@@ -111,7 +111,7 @@ namespace midterm_sql_byzfl
             tmp.Add("233");
             List<double> tmp2 = new List<double>();
             tmp2.Add(1);
-            menuItem newItem = new menuItem("333", tmp, tmp2);
+            menuItem newItem = new menuItem("333", tmp, tmp2, "a", "hello", "zzz", "100$");
             peopleViewModel.staticData.Add(newItem);
             //var i = dataGrid.SelectedItem;
             //dataGrid.ScrollItemIntoView(newItem);
