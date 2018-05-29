@@ -169,6 +169,7 @@
     </Compile>
     <Compile Include="Services\materialManager.cs" />
     <Compile Include="Services\menuManager.cs" />
+    <Compile Include="Services\safeManager.cs" />
     <Compile Include="Services\userManager.cs" />
     <Compile Include="StateTriggers\MobileScreenTrigger.cs" />
     <Compile Include="userlistpage.xaml.cs">

@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.IO;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using System.Security.Cryptography;
+using midterm_sql_byzfl.Services;
 
 namespace midterm_project.Services
 {
@@ -50,7 +52,7 @@ namespace midterm_project.Services
             using (var custstmt = ((App)App.Current).conn.Prepare("INSERT INTO UserDataBase (UserName, Password, Authority) VALUES (?, ?, ?)"))
             {
                 custstmt.Bind(1, inputUserItem.UserName);
-                custstmt.Bind(2, inputUserItem.Password);
+                custstmt.Bind(2, safeManager.SHA1it(inputUserItem.Password));
                 custstmt.Bind(3, inputUserItem.Authority);
                 custstmt.Step();
             }
@@ -67,7 +69,7 @@ namespace midterm_project.Services
             using (var custstmt = ((App)App.Current).conn.Prepare("UPDATE UserDataBase SET UserName = ? ,Password = ? ,Authority = ? WHERE UserName=?"))
             {
                 custstmt.Bind(1, newItem.UserName);
-                custstmt.Bind(2, newItem.Password);
+                custstmt.Bind(2, safeManager.SHA1it(newItem.Password));
                 custstmt.Bind(3, newItem.Authority);
                 custstmt.Bind(4, oldItemName);
                 custstmt.Step();
@@ -222,6 +224,16 @@ namespace midterm_project.Services
                 throw ex;
             }
         }
-       
+
+        // 判断对应用户名和密码是否正确（或用户名不存在）
+        public static bool check(string name, string password)
+        {
+            var find = GetAItem(name);
+            if (find == null)
+                return false;
+            if (find.Password == safeManager.SHA1it(password))
+                return true;
+            return false;
+        }
     }
 }

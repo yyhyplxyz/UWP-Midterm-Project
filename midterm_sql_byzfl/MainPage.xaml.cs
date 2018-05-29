@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using midterm_project.Models;
 using midterm_project.Services;
+using midterm_sql_byzfl.Services;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -156,7 +157,7 @@ namespace midterm_project
                 result += res.ElementAt(i).Authority;
                 result += "\n";
             }
-            userManager.Update("zhang",new userItem("zhangflu", "asshole", 1));
+            userManager.Update("zhang",new userItem("zhangflu", "handsome", 1));
             userItem temp = userManager.GetAItem("zhangflu");
             result += temp.UserName;
             result += "  ";
@@ -171,6 +172,12 @@ namespace midterm_project
             result += "\n";
             result += bool2;
             result += "\n";
+            result += userManager.check("zhangflu", "handsome");
+            result += userManager.check("root", "hhh");
+            result += userManager.check("r", "hhh");
+            result += "\n";
+            result += safeManager.checkInjection("update MaterialItem set Name = \'hhh\' wherE Name = \'egg\'");
+            result += safeManager.checkInjection("i am handsome");
             test3.Text = result;
         }
 
