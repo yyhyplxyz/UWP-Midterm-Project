@@ -20,6 +20,11 @@ using Telerik.Core;
 using midterm_sql_byzfl;
 using Microsoft.Toolkit.Uwp.Helpers;
 using midterm_project.Services;
+using Windows.Storage.Pickers;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using Windows.Storage;
 
 //https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
@@ -113,10 +118,8 @@ namespace midterm_sql_byzfl
             tmp2.Add(1);
             menuItem newItem = new menuItem("333", tmp, tmp2, "a", "hello", "zzz", "100$");
             peopleViewModel.staticData.Add(newItem);
-            //var i = dataGrid.SelectedItem;
-            //dataGrid.ScrollItemIntoView(newItem);
             dataGrid.SelectItem(newItem);
-            // dataGrid.BeginEdit(dataGrid.SelectedItem);
+
             dataGrid.ScrollItemIntoView(newItem, () =>
             {
                 dataGrid.BeginEdit(dataGrid.SelectedItem);
@@ -219,6 +222,37 @@ namespace midterm_sql_byzfl
                 dataGrid.SelectedItem = null;
             }
         }
+
+     
+      
+        private static async Task<BitmapImage> LoadImage(StorageFile file)
+        {
+            BitmapImage bitmapImage = new BitmapImage();
+            FileRandomAccessStream stream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
+            bitmapImage.SetSource(stream);
+            return bitmapImage;
+
+        }
+
+        private async void slectphoto(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                menuItem i = (menuItem)dataGrid.SelectedItem;
+                BitmapImage tmp = new BitmapImage();
+                FileOpenPicker fo = new FileOpenPicker();
+                fo.FileTypeFilter.Add(".png");
+                fo.FileTypeFilter.Add(".jpg");
+                fo.SuggestedStartLocation = PickerLocationId.Desktop;
+                var f = await fo.PickSingleFileAsync();
+                BitmapImage img = new BitmapImage();
+                tmp = await LoadImage(f);
+                i.trueimage = tmp;
+                menuManager.Update(i.menuName, i);
+                peopleViewModel.Load();
+                dataGrid.SelectedItem = null;
+            }
+        }
     }
     public class CustomCommitEditCommand_menu : DataGridCommand
     {
@@ -238,6 +272,7 @@ namespace midterm_sql_byzfl
             var i = (menuItem)(context.CellInfo.Item);
             menuManager.Insert(i);
             // Executes the default implementation of this command
+
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
         }
     }
@@ -258,7 +293,8 @@ namespace midterm_sql_byzfl
         {
             var context = parameter as EditContext;
             var i = (menuItem)(context.CellInfo.Item);
-            menuManager.Remove(i.menuName);
+            //menuManager.Remove(i.menuName);
+
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
         }
     }

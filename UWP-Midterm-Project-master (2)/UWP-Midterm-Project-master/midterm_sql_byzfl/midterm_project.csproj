@@ -137,33 +137,39 @@
     </Compile>
     <Compile Include="PeopleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QSF.Common\CommonStrings.cs" />
-    <Compile Include="QSF.Common\Converters\StringToUpperConverter.cs" />
-    <Compile Include="QSF.Common\DelegateCommand.cs" />
-    <Compile Include="QSF.Common\ExampleHelper.cs" />
-    <Compile Include="QSF.Common\Examples\GalleryControl.xaml.cs">
+    <Compile Include="RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Savemenu.xaml.cs">
+      <DependentUpon>Savemenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\QSF.Common\CommonStrings.cs" />
+    <Compile Include="Services\QSF.Common\Converters\StringToUpperConverter.cs" />
+    <Compile Include="Services\QSF.Common\DelegateCommand.cs" />
+    <Compile Include="Services\QSF.Common\ExampleHelper.cs" />
+    <Compile Include="Services\QSF.Common\Examples\GalleryControl.xaml.cs">
       <DependentUpon>GalleryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QSF.Common\Examples\GalleryItemModel.cs" />
-    <Compile Include="QSF.Common\Examples\GalleryModel.cs" />
-    <Compile Include="QSF.Common\Examples\ISubExample.cs" />
-    <Compile Include="QSF.Common\Examples\ITrackCurrentChanged.cs" />
-    <Compile Include="QSF.Common\Examples\SubExample.cs" />
-    <Compile Include="QSF.Common\Examples\TitleGalleryControlVisibility.cs" />
-    <Compile Include="QSF.Common\Examples\UWP\UWPGalleryControl.xaml.cs">
+    <Compile Include="Services\QSF.Common\Examples\GalleryItemModel.cs" />
+    <Compile Include="Services\QSF.Common\Examples\GalleryModel.cs" />
+    <Compile Include="Services\QSF.Common\Examples\ISubExample.cs" />
+    <Compile Include="Services\QSF.Common\Examples\ITrackCurrentChanged.cs" />
+    <Compile Include="Services\QSF.Common\Examples\SubExample.cs" />
+    <Compile Include="Services\QSF.Common\Examples\TitleGalleryControlVisibility.cs" />
+    <Compile Include="Services\QSF.Common\Examples\UWP\UWPGalleryControl.xaml.cs">
       <DependentUpon>UWPGalleryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QSF.Common\Examples\UWP\UWPVerticalGalleryControl.xaml.cs">
+    <Compile Include="Services\QSF.Common\Examples\UWP\UWPVerticalGalleryControl.xaml.cs">
       <DependentUpon>UWPVerticalGalleryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QSF.Common\Examples\VerticalGalleryControl.xaml.cs">
+    <Compile Include="Services\QSF.Common\Examples\VerticalGalleryControl.xaml.cs">
       <DependentUpon>VerticalGalleryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QSF.Common\Examples\ViewModelBase.cs" />
-    <Compile Include="QSF.Common\Hint.cs" />
-    <Compile Include="QSF.Common\HintsCollection.cs" />
-    <Compile Include="QSF.Common\LoggerService.cs" />
-    <Compile Include="QSF.Common\NavigationService.cs" />
+    <Compile Include="Services\QSF.Common\Examples\ViewModelBase.cs" />
+    <Compile Include="Services\QSF.Common\Hint.cs" />
+    <Compile Include="Services\QSF.Common\HintsCollection.cs" />
+    <Compile Include="Services\QSF.Common\LoggerService.cs" />
+    <Compile Include="Services\QSF.Common\NavigationService.cs" />
     <Compile Include="ServicePage.xaml.cs">
       <DependentUpon>ServicePage.xaml</DependentUpon>
     </Compile>
@@ -201,6 +207,7 @@
     <Content Include="Assets\weather\7.png" />
     <Content Include="Assets\zzz.jpeg" />
     <Content Include="Assets\Financial1.png" />
+    <Content Include="Financial1.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -209,7 +216,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="QSF.Common\QSF.Common.csproj" />
+    <Content Include="Services\QSF.Common\QSF.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -256,19 +263,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="QSF.Common\Examples\GalleryControl.xaml">
+    <Page Include="RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Savemenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Services\QSF.Common\Examples\GalleryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="QSF.Common\Examples\UWP\UWPGalleryControl.xaml">
+    <Page Include="Services\QSF.Common\Examples\UWP\UWPGalleryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="QSF.Common\Examples\UWP\UWPVerticalGalleryControl.xaml">
+    <Page Include="Services\QSF.Common\Examples\UWP\UWPVerticalGalleryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="QSF.Common\Examples\VerticalGalleryControl.xaml">
+    <Page Include="Services\QSF.Common\Examples\VerticalGalleryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

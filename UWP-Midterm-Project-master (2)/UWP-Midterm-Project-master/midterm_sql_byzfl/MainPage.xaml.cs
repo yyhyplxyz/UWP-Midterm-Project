@@ -190,7 +190,7 @@ namespace midterm_project
 
         private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(midterm_sql_byzfl.Login));
+            this.Frame.Navigate(typeof(midterm_sql_byzfl.RegisterPage));
         }
 
         private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)

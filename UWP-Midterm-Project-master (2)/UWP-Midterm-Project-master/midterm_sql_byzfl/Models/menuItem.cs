@@ -57,6 +57,7 @@ namespace midterm_project.Models
             Category = tcatelogy;
             description = tdescription;
             Image = timage;
+           // Image = "Assets/" + Image + ".jpeg";
             price = tprice;
 
             materialName = new List<string>();
@@ -72,7 +73,7 @@ namespace midterm_project.Models
                 materialNumber.Add(tempnum);
             }
             SQLString = StringFromSQL;
-            trueimage = new BitmapImage(new Uri("ms-appx:///" + Image + ".jpeg", UriKind.Absolute));
+            trueimage = new BitmapImage(new Uri("ms-appx:///"+Image));
         }
 
         public string generateSQLSavingString()

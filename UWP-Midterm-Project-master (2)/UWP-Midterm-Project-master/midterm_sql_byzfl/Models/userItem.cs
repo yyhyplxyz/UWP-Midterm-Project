@@ -23,10 +23,8 @@ namespace midterm_project.Models
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
-            
         }
         public userItem() { }
-
         public userItem(string inputUserName, string inputPassword, int inputAuthority, string image)
         {
             UserName = inputUserName;

@@ -28,10 +28,15 @@
                     Label="Delete item"
                     ToolTipService.ToolTip="Delete item" />
             <AppBarButton
+                    Click="slectphoto"
+                    Icon="BrowsePhotos"
+                    Label="New"
+                    ToolTipService.ToolTip="New menu" />
+            <AppBarButton
                     Click="CreateCustomer_Click"
                     Icon="Add"
                     Label="New"
-                    ToolTipService.ToolTip="New menu" />
+                    ToolTipService.ToolTip="Change photo" />
         </CommandBar>
         <local:CollapsibleSearchBox
                 x:Name="CustomerSearchBox"
@@ -61,8 +66,16 @@
                 <telerikGrid:DataGridTextColumn PropertyName="price"  />
                 <telerikGrid:DataGridTextColumn PropertyName="SQLString" Header="材料"  />
                 <telerikGrid:DataGridTextColumn PropertyName="Image"  />
-                <telerikGrid:DataGridImageColumn PropertyName="trueimage" Header="图片"/>
-               
+                <telerikGrid:DataGridTemplateColumn Header="tuxiang" CanUserEdit="True">
+                    <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Source="{Binding trueimage}" Stretch="UniformToFill" Width="60" Height="60" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                </telerikGrid:DataGridTemplateColumn>
+
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
         <VisualStateManager.VisualStateGroups>

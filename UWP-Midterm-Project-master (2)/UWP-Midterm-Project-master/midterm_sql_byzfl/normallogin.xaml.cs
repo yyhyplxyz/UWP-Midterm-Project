@@ -57,7 +57,9 @@ namespace midterm_sql_byzfl
 
         private void RegisterButtonTextBlock_OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            myhelp();
+            //myhelp();
+            Frame.Navigate(typeof(RegisterPage));
+
         }
         private async Task myhelp()
         {
