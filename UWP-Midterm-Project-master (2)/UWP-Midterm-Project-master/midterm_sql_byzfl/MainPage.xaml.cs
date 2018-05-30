@@ -143,10 +143,10 @@ namespace midterm_project
         {
             string result = "";
             userManager.BuildDatabase();
-            userManager.Insert(new userItem("yao", "yao", 1));
-            userManager.Insert(new userItem("zhang", "zhang", 0));
-            userManager.Insert(new userItem("new", "new", 1));
-            userManager.Insert(new userItem("hello", "hello", 0));
+            userManager.Insert(new userItem("yao", "yao", 1, "hello"));
+            userManager.Insert(new userItem("zhang", "zhang", 0, "hello"));
+            userManager.Insert(new userItem("new", "new", 1, "hello"));
+            userManager.Insert(new userItem("hello", "hello", 0, "hello"));
             List<userItem> res = userManager.GetAItem();
             for(int i = 0; i < res.Count; i++)
             {
@@ -155,9 +155,11 @@ namespace midterm_project
                 result += res.ElementAt(i).Password;
                 result += "  ";
                 result += res.ElementAt(i).Authority;
+                result += "  ";
+                result += res.ElementAt(i).Image;
                 result += "\n";
             }
-            userManager.Update("zhang",new userItem("zhangflu", "handsome", 1));
+            userManager.Update("zhang",new userItem("zhangflu", "handsome", 1, "cool"));
             userItem temp = userManager.GetAItem("zhangflu");
             result += temp.UserName;
             result += "  ";

@@ -108,7 +108,7 @@ namespace midterm_sql_byzfl
 
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            userItem newItem = new userItem("333", "233", 1);
+            userItem newItem = new userItem("333", "233", 1, "picture");
             peopleViewModel.staticData.Add(newItem);
             //var i = dataGrid.SelectedItem;
             //dataGrid.ScrollItemIntoView(newItem);
