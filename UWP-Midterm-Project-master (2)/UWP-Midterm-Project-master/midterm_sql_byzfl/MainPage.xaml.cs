@@ -88,6 +88,7 @@ namespace midterm_project
             menuItem t3 = new menuItem("t3", "apple,1.5,banana,2.5,water,100000,", "a", "hello", "zzz", "100$");
             menuItem t4 = new menuItem("t4", "apple,1.5,banana,2.5,water,100000,", "a", "hello", "zzz", "100$");
             menuItem t5 = new menuItem("t5", "det,1.5,", "a", "hello", "zzz", "100$");
+            menuItem t6 = new menuItem("t6", "egg,1,", "a", "hello", "zzz", "100$");
             result += t1.generateSQLSavingString();
             menuManager.BuildDatabase();
             menuManager.Insert(t1);
@@ -95,6 +96,7 @@ namespace midterm_project
             menuManager.Insert(t3);
             menuManager.Insert(t4);
             menuManager.Insert(t5);
+            menuManager.Insert(t6);
             menuManager.Remove("t4");
             menuManager.Update("t3", new menuItem("t3", "apple,1.5,banana,2.5,water,1999999,", "a", "hello", "zzz", "100$"));
             result += "\n" + menuManager.GetAItem("t3").generateFormulaString() + "\n";
@@ -143,10 +145,10 @@ namespace midterm_project
         {
             string result = "";
             userManager.BuildDatabase();
-            userManager.Insert(new userItem("yao", "yao", 1, "hello"));
-            userManager.Insert(new userItem("zhang", "zhang", 0, "hello"));
-            userManager.Insert(new userItem("new", "new", 1, "hello"));
-            userManager.Insert(new userItem("hello", "hello", 0, "hello"));
+            userManager.Insert(new userItem("yao", "yao", 1, "hello", "12345", "222@qq.com"));
+            userManager.Insert(new userItem("zhang", "zhang", 0, "hello", "12345", "222@qq.com"));
+            userManager.Insert(new userItem("new", "new", 1, "hello", "12345", "222@qq.com"));
+            userManager.Insert(new userItem("hello", "hello", 0, "hello", "12345", "222@qq.com"));
             List<userItem> res = userManager.GetAItem();
             for(int i = 0; i < res.Count; i++)
             {
@@ -157,9 +159,13 @@ namespace midterm_project
                 result += res.ElementAt(i).Authority;
                 result += "  ";
                 result += res.ElementAt(i).Image;
+                result += "  ";
+                result += res.ElementAt(i).Phone;
+                result += "  ";
+                result += res.ElementAt(i).Email;
                 result += "\n";
             }
-            userManager.Update("zhang",new userItem("zhangflu", "handsome", 1, "cool"));
+            userManager.Update("zhang",new userItem("zhangflu", "handsome", 1, "cool", "12345", "222@qq.com"));
             userItem temp = userManager.GetAItem("zhangflu");
             result += temp.UserName;
             result += "  ";

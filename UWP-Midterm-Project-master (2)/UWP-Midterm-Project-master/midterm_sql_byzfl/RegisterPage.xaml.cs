@@ -103,7 +103,7 @@ namespace midterm_sql_byzfl
                 {
                     var dialog = new MessageDialog("Congrats! your have successfully Registered.");
                     await dialog.ShowAsync();
-                    userManager.Insert(new userItem(TxtUserName.Text, TxtPwd.Password, 0, TxtUserName.Text));
+                    userManager.Insert(new userItem(TxtUserName.Text, TxtPwd.Password, 0, TxtUserName.Text, "", ""));
                     Frame.Navigate(typeof(ServicePage));
                 }
                 else

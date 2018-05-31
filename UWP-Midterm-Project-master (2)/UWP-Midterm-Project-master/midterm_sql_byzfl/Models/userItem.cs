@@ -16,6 +16,8 @@ namespace midterm_project.Models
         public string Password { get; set; }
         public int Authority { get; set; }
         public string Image { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
 
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -25,12 +27,14 @@ namespace midterm_project.Models
             }
         }
         public userItem() { }
-        public userItem(string inputUserName, string inputPassword, int inputAuthority, string image)
+        public userItem(string inputUserName, string inputPassword, int inputAuthority, string image, string phone, string email)
         {
             UserName = inputUserName;
             Password = inputPassword;
             Authority = inputAuthority;
             Image = image;
+            Phone = phone;
+            Email = email;
         }
 
        

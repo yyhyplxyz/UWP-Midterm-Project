@@ -29,7 +29,9 @@ namespace midterm_project.Services
                                 UserDataBase (UserName   VARCHAR( 140 ) PRIMARY KEY NOT NULL,
                                             Password    VARCHAR( 140 ),
                                             Authority INT( 1 ),
-                                            Image       VARCHAR( 140 )
+                                            Image       VARCHAR( 140 ),
+                                            Phone       VARCHAR( 140 ),
+                                            Email       VARCHAR( 140 )
                                             );";
             using (var statement = ((App)App.Current).conn.Prepare(sql))
             {
@@ -37,7 +39,7 @@ namespace midterm_project.Services
             }
             if (!isExist("root"))
             {
-                Insert(new userItem("root", "root", 0 , ""));
+                Insert(new userItem("root", "root", 0 , "", "", ""));
             }
         }
         //public userManager()
@@ -50,12 +52,14 @@ namespace midterm_project.Services
             {
                 return false;
             }
-            using (var custstmt = ((App)App.Current).conn.Prepare("INSERT INTO UserDataBase (UserName, Password, Authority, Image) VALUES (?, ?, ?, ?)"))
+            using (var custstmt = ((App)App.Current).conn.Prepare("INSERT INTO UserDataBase (UserName, Password, Authority, Image, Phone, Email) VALUES (?, ?, ?, ?, ?, ?)"))
             {
                 custstmt.Bind(1, inputUserItem.UserName);
                 custstmt.Bind(2, safeManager.SHA1it(inputUserItem.Password));
                 custstmt.Bind(3, inputUserItem.Authority);
                 custstmt.Bind(4, inputUserItem.Image);
+                custstmt.Bind(5, inputUserItem.Phone);
+                custstmt.Bind(6, inputUserItem.Email);
                 custstmt.Step();
             }
             return true;
@@ -68,13 +72,15 @@ namespace midterm_project.Services
             {
                 return false;
             }
-            using (var custstmt = ((App)App.Current).conn.Prepare("UPDATE UserDataBase SET UserName = ? ,Password = ? ,Authority = ?, Image = ? WHERE UserName=?"))
+            using (var custstmt = ((App)App.Current).conn.Prepare("UPDATE UserDataBase SET UserName = ? ,Password = ? ,Authority = ?, Image = ?, Phone = ?, Email = ? WHERE UserName=?"))
             {
                 custstmt.Bind(1, newItem.UserName);
                 custstmt.Bind(2, safeManager.SHA1it(newItem.Password));
                 custstmt.Bind(3, newItem.Authority);
                 custstmt.Bind(4, newItem.Image);
-                custstmt.Bind(5, oldItemName);
+                custstmt.Bind(5, newItem.Phone);
+                custstmt.Bind(6, newItem.Email);
+                custstmt.Bind(7, oldItemName);
                 custstmt.Step();
             }
             return true;
@@ -98,7 +104,7 @@ namespace midterm_project.Services
         public static List<userItem> GetAItem()
         {
             List<userItem> result = new List<userItem>();
-            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image FROM UserDataBase"))
+            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image,Phone,Email FROM UserDataBase"))
             {
                 while (SQLiteResult.ROW == statement.Step())
                 {
@@ -106,7 +112,9 @@ namespace midterm_project.Services
                             (string)statement[0],
                             (string)statement[1],
                             (int)(Int64)statement[2], 
-                            (string)statement[3]
+                            (string)statement[3], 
+                            (string)statement[4], 
+                            (string)statement[5]
                         );
                     result.Add(temp);
                 }
@@ -118,7 +126,7 @@ namespace midterm_project.Services
         public static userItem GetAItem(string inputUserName)
         {
             userItem result = null;
-            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image FROM UserDataBase WHERE UserName = ? "))
+            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image,Phone,Email FROM UserDataBase WHERE UserName = ? "))
             {
                 statement.Bind(1, inputUserName);
                 while (SQLiteResult.ROW == statement.Step())
@@ -127,7 +135,9 @@ namespace midterm_project.Services
                             (string)statement[0],
                             (string)statement[1],
                             (int)(Int64)statement[2],
-                            (string)statement[3]
+                            (string)statement[3],
+                            (string)statement[4],
+                            (string)statement[5]
                         );
                 }
             }
@@ -138,7 +148,7 @@ namespace midterm_project.Services
         {
             List<userItem> result = new List<userItem>();
             string newInputUserName = "%" + inputUserName + "%";
-            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image FROM UserDataBase WHERE UserName LIKE ? "))
+            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image,Phone,Email FROM UserDataBase WHERE UserName LIKE ? "))
             {
                 statement.Bind(1, newInputUserName);
                 while (SQLiteResult.ROW == statement.Step())
@@ -147,7 +157,9 @@ namespace midterm_project.Services
                             (string)statement[0],
                             (string)statement[1],
                             (int)(Int64)statement[2],
-                            (string)statement[3]
+                            (string)statement[3],
+                            (string)statement[4],
+                            (string)statement[5]
                         );
                     result.Add(temp);
                 }
@@ -160,7 +172,7 @@ namespace midterm_project.Services
         {
             List<userItem> result = new List<userItem>();
             string newInputAuthority = "%" + inputAuthority + "%";
-            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image FROM UserDataBase WHERE Authority LIKE ? "))
+            using (var statement = ((App)App.Current).conn.Prepare("SELECT UserName,Password,Authority,Image,Phone,Email FROM UserDataBase WHERE Authority LIKE ? "))
             {
                 statement.Bind(1, newInputAuthority);
                 while (SQLiteResult.ROW == statement.Step())
@@ -169,7 +181,9 @@ namespace midterm_project.Services
                             (string)statement[0],
                             (string)statement[1],
                             (int)(Int64)statement[2],
-                            (string)statement[3]
+                            (string)statement[3],
+                            (string)statement[4],
+                            (string)statement[5]
                         );
                     result.Add(temp);
                 }
