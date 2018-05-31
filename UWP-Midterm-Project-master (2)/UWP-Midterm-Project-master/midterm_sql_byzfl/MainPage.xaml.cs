@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using midterm_project.Models;
 using midterm_project.Services;
 using midterm_sql_byzfl.Services;
+using Windows.Storage.Streams;
+using Windows.Storage;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -202,6 +204,11 @@ namespace midterm_project
         private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(midterm_sql_byzfl.userlistpage));
+        }
+
+        private void testShare_Click(object sender, RoutedEventArgs e)
+        {
+            shareManager.shareIt("title", "description", "zhangflu is handsome!\n Wow! handsome boy!", null);
         }
     }
 }

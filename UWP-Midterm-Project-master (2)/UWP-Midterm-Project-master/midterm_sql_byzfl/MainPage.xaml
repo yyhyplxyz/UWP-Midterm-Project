@@ -20,6 +20,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" x:Name="testMaterial" Content="Material" Click="testMaterial_Click"/>
             <TextBlock Grid.Row="1" x:Name="test" FontSize="6"/>
@@ -37,6 +38,7 @@
             <HyperlinkButton Grid.Row="9" Content="Click to go to userlist page"
                  Click="HyperlinkButton_Click_2"
                  HorizontalAlignment="Center"/>
+            <!--<Button Grid.Row="10" x:Name="testShare" Content="Share" Click="testShare_Click"/>-->
         </Grid>
     </Grid>
     

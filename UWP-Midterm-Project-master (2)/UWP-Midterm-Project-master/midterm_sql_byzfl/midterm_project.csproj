@@ -176,6 +176,7 @@
     <Compile Include="Services\materialManager.cs" />
     <Compile Include="Services\menuManager.cs" />
     <Compile Include="Services\safeManager.cs" />
+    <Compile Include="Services\shareManager.cs" />
     <Compile Include="Services\userManager.cs" />
     <Compile Include="SettingDialog.xaml.cs">
       <DependentUpon>SettingDialog.xaml</DependentUpon>
