@@ -8,7 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Orientation="Vertical" Grid.Row="0">
+        <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"  />
+        <StackPanel Orientation="Vertical" Grid.Row="1">
             <TextBlock Text="Login" FontSize="36" Margin="4" TextAlignment="Center"/>
             <TextBlock x:Name="ErrorMessage" Text="" FontSize="20" Margin="4" Foreground="Red" TextAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

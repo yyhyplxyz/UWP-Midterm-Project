@@ -110,10 +110,7 @@ namespace midterm_sql_byzfl
         {
             userItem newItem = new userItem("333", "233", 1, "picture", "phone", "email");
             peopleViewModel.staticData.Add(newItem);
-            //var i = dataGrid.SelectedItem;
-            //dataGrid.ScrollItemIntoView(newItem);
             dataGrid.SelectItem(newItem);
-           // dataGrid.BeginEdit(dataGrid.SelectedItem);
             dataGrid.ScrollItemIntoView(newItem, () =>
             {
                 try
@@ -302,48 +299,5 @@ namespace midterm_sql_byzfl
         }
     }
 
-    public class CustomBeginEditCommand : DataGridCommand
-    {
-        public CustomBeginEditCommand()
-        {
-            this.Id = CommandId.BeginEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (userItem)(context.CellInfo.Item);
-            userManager.Remove(i.UserName);
-            // Executes the default implementation of this command
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-    }
-    public class CustomCancleEditCommand : DataGridCommand
-    {
-        public CustomCancleEditCommand()
-        {
-            this.Id = CommandId.CancelEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (userItem)(context.CellInfo.Item);
-            userManager.Insert(i);
-
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-
-       
-    }
+  
 }

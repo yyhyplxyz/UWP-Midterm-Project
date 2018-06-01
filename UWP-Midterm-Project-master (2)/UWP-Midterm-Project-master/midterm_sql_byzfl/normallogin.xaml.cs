@@ -83,5 +83,10 @@ namespace midterm_sql_byzfl
         {
             Frame.Navigate(typeof(RegisterPage));
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FirstPage));
+        }
     }
 }

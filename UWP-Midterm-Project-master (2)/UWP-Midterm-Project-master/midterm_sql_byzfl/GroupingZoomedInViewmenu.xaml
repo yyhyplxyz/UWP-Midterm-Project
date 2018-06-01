@@ -57,7 +57,7 @@
             <telerikGrid:RadDataGrid.Commands >
                 <local:FlyoutGroupHeaderTapCommand />
                 <local:CustomCommitEditCommand_menu />
-                <local:CustomBeginEditCommand_menu />
+                
             </telerikGrid:RadDataGrid.Commands>
             <telerikGrid:RadDataGrid.Columns>
                 <telerikGrid:DataGridTextColumn PropertyName="menuName" Header="名称" />
@@ -81,7 +81,7 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1047" />
+                        <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="dataGrid.CanUserChooseColumns" Value="False"/>

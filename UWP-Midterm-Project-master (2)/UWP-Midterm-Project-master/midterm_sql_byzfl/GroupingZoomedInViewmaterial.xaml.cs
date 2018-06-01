@@ -256,49 +256,5 @@ namespace midterm_sql_byzfl
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
         }
     }
-
-    public class CustomBeginEditCommand_material : DataGridCommand
-    {
-        public CustomBeginEditCommand_material()
-        {
-            this.Id = CommandId.BeginEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (materialItem)(context.CellInfo.Item);
-            materialManager.Remove(i.name);
-            // Executes the default implementation of this command
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-    }
-    public class CustomCancleEditCommand_material : DataGridCommand
-    {
-        public CustomCancleEditCommand_material()
-        {
-            this.Id = CommandId.CancelEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (materialItem)(context.CellInfo.Item);
-            materialManager.Insert(i);
-
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-
-
-    }
+   
 }

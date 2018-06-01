@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -230,8 +231,8 @@ namespace midterm_sql_byzfl
             }
         }
 
-     
-      
+
+
         private static async Task<BitmapImage> LoadImage(StorageFile file)
         {
             BitmapImage bitmapImage = new BitmapImage();
@@ -243,23 +244,23 @@ namespace midterm_sql_byzfl
 
         private async void slectphoto(object sender, RoutedEventArgs e)
         {
-            if (dataGrid.SelectedItem != null)
-            {
-                menuItem i = (menuItem)dataGrid.SelectedItem;
-                BitmapImage tmp = new BitmapImage();
-                FileOpenPicker fo = new FileOpenPicker();
-                fo.FileTypeFilter.Add(".png");
-                fo.FileTypeFilter.Add(".jpg");
-                fo.SuggestedStartLocation = PickerLocationId.Desktop;
-                var f = await fo.PickSingleFileAsync();
-                BitmapImage img = new BitmapImage();
-                tmp = await LoadImage(f);
-                i.trueimage = tmp;
-                i.Image = "Assets/" + f.DisplayName + f.DisplayType;
-                menuManager.Update(i.menuName, i);
-                peopleViewModel.Load();
-                dataGrid.SelectedItem = null;
-            }
+            menuItem i = (menuItem)dataGrid.SelectedItem;
+            BitmapImage tmp = new BitmapImage();
+            FileOpenPicker fo = new FileOpenPicker();
+            fo.FileTypeFilter.Add(".png");
+            fo.FileTypeFilter.Add(".jpg");
+            fo.SuggestedStartLocation = PickerLocationId.Desktop;
+            var f = await fo.PickSingleFileAsync();
+            BitmapImage img = new BitmapImage();
+            tmp = await LoadImage(f);
+            i.trueimage = tmp;
+            string t = f.DisplayType;
+            t = t.Substring(0, t.Length - 2);
+            t = t.ToLower();
+            i.Image = "Assets/" + f.DisplayName + "." + t;
+            menuManager.Update(i.menuName, i);
+            await peopleViewModel.loadAsync();
+            dataGrid.SelectedItem = null;
         }
     }
     public class CustomCommitEditCommand_menu : DataGridCommand
