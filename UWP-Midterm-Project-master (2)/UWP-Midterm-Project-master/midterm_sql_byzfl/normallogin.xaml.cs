@@ -16,7 +16,7 @@ using midterm_project.Services;
 using midterm_project.Models;
 using System.Threading.Tasks;
 using midterm_sql_byzfl.Utils;
-
+using midterm_sql_byzfl.Services;
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
 namespace midterm_sql_byzfl
@@ -35,18 +35,35 @@ namespace midterm_sql_byzfl
 
             testTile.circulationUpdate();
 
+
+        }
+        bool check;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+           // check = (bool)e.Parameter;
+           
+
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
         {
             UserName = username.Text;
             pass = passw.Password;
-            if(userManager.isExist(UserName))
+            if (!safeManager.checkInjection(UserName))
+            {
+                ErrorMessage.Text = "The input is unsafe";
+            }
+              else if (userManager.isExist(UserName))
             {
                 userItem thisuser = userManager.GetAItem(UserName);
                 if(userManager.check(UserName, pass))
                 {
-                    if(thisuser.Authority == 0)
+                    if(check)
+                    {
+                        AccountHelper.AddAccount(thisuser.UserName);
+                    }
+                    if (thisuser.Authority == 1)
                     Frame.Navigate(typeof(ServicePage), thisuser);
                     else
                         Frame.Navigate(typeof(userlistpage), thisuser);
@@ -64,9 +81,7 @@ namespace midterm_sql_byzfl
 
         private void RegisterButtonTextBlock_OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            //myhelp();
             Frame.Navigate(typeof(RegisterPage));
-
         }
     }
 }

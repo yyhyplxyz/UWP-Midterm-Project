@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="White">
+        
         <Grid Margin="5,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -25,7 +26,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!--Title-->
+            <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"  />
             <TextBlock Text="User Registration :" Grid.Row="0" FontSize="40" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="Black"/>
         
             <Image x:Name="mypic" Grid.Row="1" Source="Assets/Financial1.png" Width="250" Height="250" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
@@ -49,9 +50,8 @@
             <TextBlock Text="EmaiID: " Grid.Row="7" Margin="0,25,0,0" Foreground="Black" HorizontalAlignment="Center" />
             <TextBox Name="TxtEmail" Grid.Column="1" BorderBrush="LightGray" Grid.Row="7" Margin="100,0,0,0" />
 
-            <!--Submit Button-->
-            <Button BorderBrush="Transparent"  Background="#FF30DABB" Content="Submit"  Name="BtnSubmit" Click="Submit_Click" Grid.Row="8"/>
-
+            <Button BorderBrush="Transparent"  Content="Submit"  Name="BtnSubmit" Click="Submit_Click" Grid.Row="8" Grid.ColumnSpan="1" HorizontalAlignment="Center" />
+        
         </Grid>
     </Grid>
 </Page>

@@ -27,6 +27,7 @@ namespace midterm_project.Models
             }
         }
         public userItem() { }
+        public userItem(string a) { UserName = a; }
         public userItem(string inputUserName, string inputPassword, int inputAuthority, string image, string phone, string email)
         {
             UserName = inputUserName;

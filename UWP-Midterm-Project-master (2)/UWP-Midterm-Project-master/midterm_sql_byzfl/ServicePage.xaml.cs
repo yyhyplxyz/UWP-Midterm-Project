@@ -19,6 +19,7 @@ using midterm_sql_byzfl.Utils;
 using midterm_project.Services;
 using midterm_sql_byzfl.Utils;
 using Windows.UI.Notifications;
+using midterm_sql_byzfl.Services;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -78,20 +79,7 @@ namespace midterm_sql_byzfl
                 menuManager.Getmenus("Drink", menuItems);
                 TitleTextBlock.Text = "Drink";
             }
-            else if (ADD.IsSelected)
-            {
-                var dialog = new ContentDialog
-                {
-                    Title = "Notice",
-                    Content = "Are you sure you want to login with this device later?",
-                    IsPrimaryButtonEnabled = true,
-                    PrimaryButtonText = "OK",
-                    SecondaryButtonText = "cancel",
-
-                };
-                dialog.PrimaryButtonClick += (_s, _e) => { SignInPassport(); };
-                await dialog.ShowAsync();
-            }
+           
             else if (settingItem.IsSelected)
             {
                 SettingDialog st = new SettingDialog(this);
@@ -146,14 +134,29 @@ namespace midterm_sql_byzfl
             }
         }
 
-        private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
-        {
-            var tmp = menuManager.SerachName(mySearchBox.QueryText);
-            menuItems.Clear();
-            foreach (var i in tmp)
+        private async void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {//safeManager.checkInjection(mySearchBox.QueryText)
+            if (safeManager.checkInjection(mySearchBox.QueryText))
             {
-                menuItems.Add(i);
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "Your input is unsafe",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
             }
+            else
+            {
+                var tmp = menuManager.SerachName(mySearchBox.QueryText);
+                menuItems.Clear();
+                foreach (var i in tmp)
+                {
+                    menuItems.Add(i);
+                }
+            }
+           
         }
     }
 }

@@ -39,34 +39,13 @@ namespace midterm_sql_byzfl
         public RegisterPage()
         {
             this.InitializeComponent();
-            apiKey = "3495cacccbb19b66be97990fc869d1e5";
+            apiKey = "766ed53f0d398e4f81de02338193df3d";
         }
         String sendcode;
         string apiKey;
         string filename;
         private async Task<BitmapImage> LoadImage(StorageFile file)
         {
-            /* BitmapImage bitmapImage = new BitmapImage();
-             Stream stream = new MemoryStream();
-             FileRandomAccessStream mystream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
-             mystream.AsStream().CopyTo(stream);
-             bitmapImage.SetSource(mystream);
-             HttpClient client = new HttpClient();
-             var content = new System.Net.Http.MultipartFormDataContent();
-             if (file != null)
-             { 
-                 var streamData = await file.OpenReadAsync();
-                 var bytes = new byte[streamData.Size];
-                 using (var dataReader = new DataReader(streamData))
-                 {
-                     await dataReader.LoadAsync((uint)streamData.Size);
-                     dataReader.ReadBytes(bytes);
-                 }
-                 var streamContent = new System.Net.Http.StreamContent(new MemoryStream(bytes));
-                 content.Add(streamContent, "file", "icon.jpg");
-                 var response = await client.PostAsync(new Uri("http://172.19.73.179:8000/"), content);
-             }
-                 return bitmapImage;*/
             BitmapImage bitmapImage = new BitmapImage();
             filename = file.Name;
             FileRandomAccessStream stream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
@@ -164,7 +143,7 @@ namespace midterm_sql_byzfl
             var param = new Dictionary<string, string>
             {
                 [Const.Mobile] = TxtPhNo.Text,
-                [Const.Text] = "【元昊提醒您】您的验证码是" + rannumber
+                [Const.Text] = "【朱逸渠】您的验证码是" + rannumber
             };
             var r = clnt.Sms().SingleSend(param);
             clnt.Dispose();
@@ -185,6 +164,11 @@ namespace midterm_sql_byzfl
             }
             
             note.Text = "验证码已发送至" + TxtPhNo.Text;
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(normallogin));
         }
     }
 }

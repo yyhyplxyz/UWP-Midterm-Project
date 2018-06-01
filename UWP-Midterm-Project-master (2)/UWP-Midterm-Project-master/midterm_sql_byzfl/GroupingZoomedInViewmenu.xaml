@@ -31,12 +31,12 @@
                     Click="slectphoto"
                     Icon="BrowsePhotos"
                     Label="New"
-                    ToolTipService.ToolTip="New menu" />
+                    ToolTipService.ToolTip="更换照片" />
             <AppBarButton
                     Click="CreateCustomer_Click"
                     Icon="Add"
                     Label="New"
-                    ToolTipService.ToolTip="Change photo" />
+                    ToolTipService.ToolTip="添加菜谱" />
         </CommandBar>
         <local:CollapsibleSearchBox
                 x:Name="CustomerSearchBox"
@@ -60,13 +60,12 @@
                 <local:CustomBeginEditCommand_menu />
             </telerikGrid:RadDataGrid.Commands>
             <telerikGrid:RadDataGrid.Columns>
-                <telerikGrid:DataGridTextColumn PropertyName="menuName"  />
-                <telerikGrid:DataGridTextColumn PropertyName="Category"  />
-                <telerikGrid:DataGridTextColumn PropertyName="description"  />
-                <telerikGrid:DataGridTextColumn PropertyName="price"  />
+                <telerikGrid:DataGridTextColumn PropertyName="menuName" Header="名称" />
+                <telerikGrid:DataGridTextColumn PropertyName="Category" Header="种类" />
+                <telerikGrid:DataGridTextColumn PropertyName="description" Header="介绍"  />
+                <telerikGrid:DataGridTextColumn PropertyName="price" Header="价格" />
                 <telerikGrid:DataGridTextColumn PropertyName="SQLString" Header="材料"  />
-                <telerikGrid:DataGridTextColumn PropertyName="Image"  />
-                <telerikGrid:DataGridTemplateColumn Header="tuxiang" CanUserEdit="True">
+                <telerikGrid:DataGridTemplateColumn Header="图片" CanUserEdit="True">
                     <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
                         <DataTemplate>
                             <StackPanel>

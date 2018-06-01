@@ -38,19 +38,7 @@ namespace midterm_sql_byzfl
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            if ((sender as ToggleSwitch).Name.Equals("AlwayShowNavigation"))
-            {
-                if (AlwayShowNavigation.IsOn != App.AlwaysShowNavigation)
-                {
-                    localSettings.Values["AlwaysShowNavigation"] = AlwayShowNavigation.IsOn;
-                    App.AlwaysShowNavigation = AlwayShowNavigation.IsOn;
-                    //_mainPage.ShowNavigationBar(AlwayShowNavigation.IsOn); //立即生效
-                }
-            }
-            else
-            {
                 localSettings.Values["Theme"] = ThemeDark.IsOn ? ApplicationTheme.Dark.ToString() : ApplicationTheme.Light.ToString();
-            }
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

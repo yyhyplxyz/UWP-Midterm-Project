@@ -122,7 +122,14 @@ namespace midterm_sql_byzfl
 
             dataGrid.ScrollItemIntoView(newItem, () =>
             {
-                dataGrid.BeginEdit(dataGrid.SelectedItem);
+                try
+                {
+                    dataGrid.BeginEdit(dataGrid.SelectedItem);
+                }
+                catch
+                {
+                    dataGrid.BeginEdit(dataGrid.SelectedItem);
+                }
             });
         }
 
@@ -248,6 +255,7 @@ namespace midterm_sql_byzfl
                 BitmapImage img = new BitmapImage();
                 tmp = await LoadImage(f);
                 i.trueimage = tmp;
+                i.Image = "Assets/" + f.DisplayName + f.DisplayType;
                 menuManager.Update(i.menuName, i);
                 peopleViewModel.Load();
                 dataGrid.SelectedItem = null;

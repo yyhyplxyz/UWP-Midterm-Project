@@ -55,9 +55,9 @@
                 <local:CustomBeginEditCommand />
             </telerikGrid:RadDataGrid.Commands>
             <telerikGrid:RadDataGrid.Columns>
-                <telerikGrid:DataGridTextColumn PropertyName="UserName"  />
-                <telerikGrid:DataGridTextColumn PropertyName="Password"  />
-                <telerikGrid:DataGridTextColumn PropertyName="Authority" />
+                <telerikGrid:DataGridTextColumn PropertyName="UserName" Header="用户名" />
+                <telerikGrid:DataGridTextColumn PropertyName="Password" Header="密码" />
+                <telerikGrid:DataGridTextColumn PropertyName="Authority" Header="权限"/>
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
         <VisualStateManager.VisualStateGroups>

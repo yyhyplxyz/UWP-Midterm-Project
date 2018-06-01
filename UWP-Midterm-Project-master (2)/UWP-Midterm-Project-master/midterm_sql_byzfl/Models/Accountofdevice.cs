@@ -9,5 +9,13 @@ namespace midterm_sql_byzfl.Models
     class Accountofdevice
     {
         public string Username { get; set; }
+        public Accountofdevice(string a)
+        {
+            Username = a;
+        }
+        public Accountofdevice()
+        {
+
+        }
     }
 }

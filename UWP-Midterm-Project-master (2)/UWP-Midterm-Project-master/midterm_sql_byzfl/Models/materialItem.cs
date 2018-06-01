@@ -18,6 +18,7 @@ namespace midterm_project.Models
         public double warrantPeriod { get; set; } //保质期（以天为单位，可以带小数）
         public double price { get; set; }//价格
         public string comment { get; set; } //评价
+        public DateTime showdate { get; set; }
 
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -38,6 +39,7 @@ namespace midterm_project.Models
             warrantPeriod = WarrantPeriod;
             price = Price;
             comment = Comment;
+            showdate = purchaseDate.DateTime;
         }
 
         //返回这个材料是否过期

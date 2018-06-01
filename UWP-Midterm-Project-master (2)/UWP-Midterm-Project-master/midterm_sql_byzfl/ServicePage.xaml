@@ -20,7 +20,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MyAutoSuggestBox.Visibility" Value="Collapsed" />
+                        <Setter Target="mySearchBox.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideLayout">
@@ -28,7 +28,7 @@
                         <AdaptiveTrigger MinWindowWidth="400" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MyAutoSuggestBox.Visibility" Value="Visible" />
+                        <Setter Target="mySearchBox.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -109,17 +109,7 @@
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ADD">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock 
-                                Text="&#xE8F4;"
-                                FontFamily="Segoe MDL2 Assets" 
-                                FontSize="20" />
-                            <TextBlock Text="Add Device" 
-                                       FontSize="18" 
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
+                  
                     <ListBoxItem IsEnabled="False" Padding="0,100,0,100">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 

@@ -17,6 +17,9 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.UI.Xaml.Media.Imaging;
+using midterm_sql_byzfl.Utils;
+using System.Diagnostics;
+using midterm_project.Models;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -37,12 +40,37 @@ namespace midterm_sql_byzfl
 
         private void NormalLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(normallogin));
+            Frame.Navigate(typeof(normallogin), false);
         }
 
-        private void DeviceLoginButton_Click(object sender, RoutedEventArgs e)
+        private async void DeviceLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Login));
-        }
+         
+            // Check Microsoft Passport is setup and available on this machine
+            if (await MicrosoftPassportHelper.MicrosoftPassportAvailableCheckAsync())
+            {
+                if (await MicrosoftPassportHelper.CreatePassportKeyAsync("yao"))
+                {
+                    Frame.Navigate(typeof(ServicePage), new userItem("firends"));
+                }
+            }
+            else
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "Microsoft Passport is not setup!\n" +
+                    "Please go to Windows Settings and set up a PIN to use it.",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                    
+
+                };
+               
+                await dialog.ShowAsync();
+              
+            }
+        
+    }
     }
 }

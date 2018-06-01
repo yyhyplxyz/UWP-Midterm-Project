@@ -56,13 +56,13 @@
                 <local:CustomBeginEditCommand_material />
             </telerikGrid:RadDataGrid.Commands>
             <telerikGrid:RadDataGrid.Columns>
-                <telerikGrid:DataGridTextColumn PropertyName="name"  />
-                <telerikGrid:DataGridTextColumn PropertyName="number"  />
-                <telerikGrid:DataGridTextColumn PropertyName="unit" />
-                <telerikGrid:DataGridTextColumn PropertyName="purchaseDate"  />
-                <telerikGrid:DataGridTextColumn PropertyName="warrantPeriod"  />
-                <telerikGrid:DataGridTextColumn PropertyName="price" />
-                <telerikGrid:DataGridTextColumn PropertyName="comment" />
+                <telerikGrid:DataGridTextColumn PropertyName="name" Header="名称"  />
+                <telerikGrid:DataGridTextColumn PropertyName="number" Header="数量" />
+                <telerikGrid:DataGridTextColumn PropertyName="unit" Header="单位" />
+                <telerikGrid:DataGridDateColumn PropertyName="showdate" Header="购买时间" CanUserEdit="True" />
+                <telerikGrid:DataGridTextColumn PropertyName="warrantPeriod"  Header="保质期"/>
+                <telerikGrid:DataGridTextColumn PropertyName="price" Header="价格" />
+                <telerikGrid:DataGridTextColumn PropertyName="comment" Header="评论" />
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
         <VisualStateManager.VisualStateGroups>
