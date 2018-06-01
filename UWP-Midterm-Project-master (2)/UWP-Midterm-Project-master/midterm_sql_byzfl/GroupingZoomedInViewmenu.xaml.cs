@@ -117,7 +117,7 @@ namespace midterm_sql_byzfl
             tmp.Add("233");
             List<double> tmp2 = new List<double>();
             tmp2.Add(1);
-            menuItem newItem = new menuItem("333", tmp, tmp2, "a", "hello", "zzz", "100$");
+            menuItem newItem = new menuItem("samplename", tmp, tmp2, "Eastern", "", "", "100$");
             peopleViewModel.staticData.Add(newItem);
             dataGrid.SelectItem(newItem);
 
@@ -129,7 +129,7 @@ namespace midterm_sql_byzfl
                 }
                 catch
                 {
-                    dataGrid.BeginEdit(dataGrid.SelectedItem);
+                    
                 }
             });
         }
@@ -275,60 +275,26 @@ namespace midterm_sql_byzfl
             return true;
         }
 
-        public override void Execute(object parameter)
+        public async override void Execute(object parameter)
         {
             var context = parameter as EditContext;
             var i = (menuItem)(context.CellInfo.Item);
-            menuManager.Insert(i);
-            // Executes the default implementation of this command
-
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
+            if (menuManager.Insert(i))
+            {
+                this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
+            }
+            else
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "菜单名不能重复",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
+            }
         }
     }
 
-    public class CustomBeginEditCommand_menu : DataGridCommand
-    {
-        public CustomBeginEditCommand_menu()
-        {
-            this.Id = CommandId.BeginEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (menuItem)(context.CellInfo.Item);
-            //menuManager.Remove(i.menuName);
-
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-    }
-
-    public class CustomCancleEditCommand_menu : DataGridCommand
-    {
-        public CustomCancleEditCommand_menu()
-        {
-            this.Id = CommandId.CancelEdit;
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public override void Execute(object parameter)
-        {
-            var context = parameter as EditContext;
-            var i = (menuItem)(context.CellInfo.Item);
-            menuManager.Insert(i);
-
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
-        }
-
-
-    }
 }

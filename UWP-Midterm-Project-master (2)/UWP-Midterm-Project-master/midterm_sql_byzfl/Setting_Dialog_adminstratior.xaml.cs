@@ -56,7 +56,8 @@ namespace midterm_sql_byzfl
             try
             {
                 string result = await client.GetStringAsync(uri);
-
+                if (result == "")
+                    return;
                 JObject jo = JObject.Parse(result);
                 string[] values = jo.Properties().Select(item => item.Value.ToString()).ToArray();
                 JArray message = (JArray)JsonConvert.DeserializeObject(values[0]);

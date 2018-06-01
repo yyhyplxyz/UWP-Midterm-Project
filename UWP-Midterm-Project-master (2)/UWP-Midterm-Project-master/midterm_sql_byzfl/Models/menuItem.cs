@@ -106,33 +106,5 @@ namespace midterm_project.Models
             return result;
         }
     }
-    public class mymenuManager
-    {
-        public static void Getmenus(string category, ObservableCollection<menuItem> menuItems)
-        {
-            var allItems = getmenuItems();
-
-            var filteredmenuItems = allItems.Where(p => p.Category == category).ToList();
-
-            menuItems.Clear();
-
-            filteredmenuItems.ForEach(p => menuItems.Add(p));
-        }
-
-        private static List<menuItem> getmenuItems()
-        {
-            var items = new List<menuItem>();
-
-            items.Add(new menuItem() { menuName = "23333", Category="eastern", description= "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "eastern", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "eastern",  description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "eastern",  description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            items.Add(new menuItem() { menuName = "23333", Category = "western", description = "doro sit amet", price = "￥23.3", Image = "Assets/Financial1.png" });
-            return items;
-        }
-
-    }
+  
 }

@@ -110,7 +110,7 @@ namespace midterm_sql_byzfl
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
             //string Name, double Number, string Unit, DateTimeOffset PurchaseDate, double WarrantPeriod, double Price, string Comment
-            materialItem newItem = new materialItem("33357", 2, "233", DateTimeOffset.UtcNow, 1, 2, "333");
+            materialItem newItem = new materialItem("samplename", 2, " ", DateTimeOffset.UtcNow, 1, 2, "0");
             peopleViewModel.staticData.Add(newItem);
             //var i = dataGrid.SelectedItem;
             //dataGrid.ScrollItemIntoView(newItem);
@@ -247,13 +247,27 @@ namespace midterm_sql_byzfl
             return true;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             var context = parameter as EditContext;
             var i = (materialItem)(context.CellInfo.Item);
-            materialManager.Insert(i);
-            // Executes the default implementation of this command
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
+            
+           if( materialManager.Insert(i))
+            {
+                // Executes the default implementation of this command
+                this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
+            }
+            else
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "材料名不能重复",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
+            }
         }
     }
    
