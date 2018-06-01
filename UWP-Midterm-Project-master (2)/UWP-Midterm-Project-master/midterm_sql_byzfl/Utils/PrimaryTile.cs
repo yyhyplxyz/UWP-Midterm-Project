@@ -12,7 +12,7 @@ namespace midterm_sql_byzfl.Utils
         public string message { get; set; } = "nothing";
         public string message2 { get; set; } = " At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.";
         public string branding { get; set; } = "name";
-        public string appName { get; set; } = "餐饮管理系统";
+        public string appName { get; set; } = "过期的食物  餐饮管理系统";
 
         public PrimaryTile(string input1, string input2, DateTimeOffset input3)
         {

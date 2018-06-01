@@ -194,7 +194,6 @@
     <None Include="midterm_sql_byzfl_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\11.png" />
     <Content Include="Assets\11.scale-200.png" />
     <Content Include="Assets\33.png" />
     <Content Include="Assets\22.png" />

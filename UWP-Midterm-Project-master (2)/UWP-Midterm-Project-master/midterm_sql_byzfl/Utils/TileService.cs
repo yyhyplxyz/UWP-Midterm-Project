@@ -30,7 +30,7 @@ namespace midterm_sql_byzfl.Utils
                         ),
                         // Wide Tile
                         new XElement("binding", new XAttribute("branding", primaryTile.branding), new XAttribute("displayName", primaryTile.appName), new XAttribute("template", "TileWide"),
-                        new XElement("image", new XAttribute("placement", "background"), new XAttribute("src", "Assets/33.png")),
+                        new XElement("image", new XAttribute("placement", "background"), new XAttribute("src", "Assets/11.png")),
                         new XElement("group",
                                 new XElement("subgroup",
                                     new XElement("text", primaryTile.time, new XAttribute("hint-style", "caption")),
@@ -42,7 +42,7 @@ namespace midterm_sql_byzfl.Utils
 
                         // Medium Tile
                         new XElement("binding", new XAttribute("branding", primaryTile.branding), new XAttribute("displayName", primaryTile.appName), new XAttribute("template", "TileMedium"),
-                            new XElement("image", new XAttribute("placement", "background"), new XAttribute("src", "Assets/22.png")),
+                            new XElement("image", new XAttribute("placement", "background"), new XAttribute("src", "Assets/11.png")),
                             new XElement("group",
                                 new XElement("subgroup",
                                     new XElement("text", primaryTile.time, new XAttribute("hint-style", "caption")),
