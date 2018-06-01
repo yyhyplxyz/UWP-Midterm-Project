@@ -11,7 +11,7 @@
         <ImageBrush ImageSource="ms-appx:///Assets/t.jpg"/>
     </Page.Background>
 
-    <Grid Background="White" Name="mygrid">
+    <Grid Name="mygrid">
 
         <StackPanel Orientation="Vertical">
             <TextBlock x:Name="Title" Text="欢迎来到餐饮管理系统" FontSize="24" TextAlignment="Center" Margin="0,50,0,0" FontWeight="Bold"/>

@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}" HorizontalAlignment="Right"  />
-            <TextBlock Text="Registration" Grid.Row="0" FontSize="24" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
+            <TextBlock Text="注册" Grid.Row="0" FontSize="24" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
         
             <Image x:Name="mypic" Grid.Row="1" Source="Assets/Financial1.png" Width="150" Height="150" Grid.ColumnSpan="3" Stretch="UniformToFill"/>
 
@@ -42,7 +42,7 @@
 
             <!--Password-->
             <TextBlock Text="密码" Grid.Row="4" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-            <PasswordBox Name="TxtPwd" Grid.Column="1" BorderBrush="LightGray" Grid.Row="4" Margin="50,5,100,5"  />
+            <PasswordBox Name="TxtPwd" Grid.Column="1" BorderBrush="LightGray" Grid.Row="4" Margin="50,5,50,5"  />
             <TextBlock Text="手机号码" Foreground="Black" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox Name="TxtPhNo"  BorderBrush="LightGray" MaxLength="11" Grid.Column="1" Grid.Row="5" Margin="50,5,50,5" />
             <Button x:Name="sendcodebutton" Grid.Column="2" Grid.Row="5" Content="发送验证码" Click="sendcode_Click"/>
