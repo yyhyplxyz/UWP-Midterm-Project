@@ -17,6 +17,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using midterm_sql_byzfl.Utils;
 using midterm_project.Services;
+using midterm_sql_byzfl.Utils;
+using Windows.UI.Notifications;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -35,66 +37,68 @@ namespace midterm_sql_byzfl
         {
             base.OnNavigatedTo(e);
             thisuser = (userItem)e.Parameter;
+            UserName.Text = "Hello " + thisuser.UserName + "!";
+            menuManager.Getmenus("Eastern", menuItems);
+            TitleTextBlock.Text = "Eastern Food";
+
         }
 
         public ServicePage()
         {
             this.InitializeComponent();
             menuItems = new ObservableCollection<menuItem>();
-            UserName.Text = "Hello ";
+            
+            //UserName.Text = "hello";
         }
-
+        /**
+  * 计算两个整数和
+  * @param  {int} lval 左操作数
+  * @param  {int} rval 右操作数
+  * @return {int} 两个整数和
+*/
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Eastern_Food.IsSelected)
             {
-                menuManager.Getmenus("a", menuItems);
+                menuManager.Getmenus("Eastern", menuItems);
                 TitleTextBlock.Text = "Eastern Food";
             }
             else if (Western_food.IsSelected)
             {
-                mymenuManager.Getmenus("western", menuItems);
+                menuManager.Getmenus("Western", menuItems);
                 TitleTextBlock.Text = "Western food";
             }
             else if(Drink.IsSelected)
             {
-                mymenuManager.Getmenus("drink", menuItems);
+                menuManager.Getmenus("Drink", menuItems);
                 TitleTextBlock.Text = "Drink";
             }
             else if (ADD.IsSelected)
             {
-                myhelp();
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "Are you sure you want to login with this device later?",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                    SecondaryButtonText = "cancel",
+
+                };
+                dialog.PrimaryButtonClick += (_s, _e) => { SignInPassport(); };
+                await dialog.ShowAsync();
             }
             else if (settingItem.IsSelected)
             {
-                MySplitView.IsPaneOpen = false;
-                myhelp2();
+                SettingDialog st = new SettingDialog(this);
+                await st.ShowAsync();
             }
         }
-        private async Task myhelp2()
-        {
-            SettingDialog st = new SettingDialog(this);
-            await st.ShowAsync();
-        }
-        private async Task myhelp()
-        {
-            var dialog = new ContentDialog
-            {
-                Title = "Notice",
-                Content = "Are you sure you want to login with this device later?",
-                IsPrimaryButtonEnabled = true,
-                PrimaryButtonText = "OK",
-                SecondaryButtonText = "cancel",
-             
-            };
-            dialog.PrimaryButtonClick += (_s, _e) => { SignInPassport(); };
-            await dialog.ShowAsync();
-        }
+       
       
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -139,6 +143,16 @@ namespace midterm_sql_byzfl
             if (tapped_item != null && tapped_item.Tag != null && tapped_item.Tag.ToString().Equals("0"))
             {
                 MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+            }
+        }
+
+        private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {
+            var tmp = menuManager.SerachName(mySearchBox.QueryText);
+            menuItems.Clear();
+            foreach (var i in tmp)
+            {
+                menuItems.Add(i);
             }
         }
     }

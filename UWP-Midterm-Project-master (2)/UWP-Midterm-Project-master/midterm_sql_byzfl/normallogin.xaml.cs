@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using midterm_project.Services;
 using midterm_project.Models;
 using System.Threading.Tasks;
+using midterm_sql_byzfl.Utils;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -27,10 +28,13 @@ namespace midterm_sql_byzfl
     {
         public string UserName;
         public string pass;
-
+        TileManager testTile = new TileManager();
         public normallogin()
         {
             this.InitializeComponent();
+
+            testTile.circulationUpdate();
+
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
@@ -40,9 +44,12 @@ namespace midterm_sql_byzfl
             if(userManager.isExist(UserName))
             {
                 userItem thisuser = userManager.GetAItem(UserName);
-                if(thisuser.Password == pass)
+                if(userManager.check(UserName, pass))
                 {
+                    if(thisuser.Authority == 0)
                     Frame.Navigate(typeof(ServicePage), thisuser);
+                    else
+                        Frame.Navigate(typeof(userlistpage), thisuser);
                 }
                 else
                 {
@@ -60,17 +67,6 @@ namespace midterm_sql_byzfl
             //myhelp();
             Frame.Navigate(typeof(RegisterPage));
 
-        }
-        private async Task myhelp()
-        {
-            var dialog = new ContentDialog
-            {
-                Title = "提示",
-                Content = "请联系老板，杨元昊",
-                IsPrimaryButtonEnabled = true,
-                PrimaryButtonText="OK"
-            };
-            await dialog.ShowAsync();
         }
     }
 }

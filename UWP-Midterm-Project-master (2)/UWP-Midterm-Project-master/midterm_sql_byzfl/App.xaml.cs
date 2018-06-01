@@ -92,7 +92,7 @@ namespace midterm_project
                     // 当导航堆栈尚未还原时，导航到第一页，
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
-                    rootFrame.Navigate(typeof(MainPage
+                    rootFrame.Navigate(typeof(normallogin
                         ), e.Arguments);
                 }
                 // 确保当前窗口处于活动状态

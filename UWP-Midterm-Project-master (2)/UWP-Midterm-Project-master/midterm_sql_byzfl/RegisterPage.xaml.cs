@@ -21,6 +21,11 @@ using System.Text.RegularExpressions;
 using Windows.UI.Popups;
 using midterm_project.Services;
 using midterm_project.Models;
+using System.Threading;
+using System.Net.Http;
+using Yunpian.Sdk;
+using Yunpian.Sdk.Model;
+using midterm_sql_byzfl.Utils;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -34,10 +39,44 @@ namespace midterm_sql_byzfl
         public RegisterPage()
         {
             this.InitializeComponent();
+            apiKey = "3495cacccbb19b66be97990fc869d1e5";
+        }
+        String sendcode;
+        string apiKey;
+        string filename;
+        private async Task<BitmapImage> LoadImage(StorageFile file)
+        {
+            /* BitmapImage bitmapImage = new BitmapImage();
+             Stream stream = new MemoryStream();
+             FileRandomAccessStream mystream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
+             mystream.AsStream().CopyTo(stream);
+             bitmapImage.SetSource(mystream);
+             HttpClient client = new HttpClient();
+             var content = new System.Net.Http.MultipartFormDataContent();
+             if (file != null)
+             { 
+                 var streamData = await file.OpenReadAsync();
+                 var bytes = new byte[streamData.Size];
+                 using (var dataReader = new DataReader(streamData))
+                 {
+                     await dataReader.LoadAsync((uint)streamData.Size);
+                     dataReader.ReadBytes(bytes);
+                 }
+                 var streamContent = new System.Net.Http.StreamContent(new MemoryStream(bytes));
+                 content.Add(streamContent, "file", "icon.jpg");
+                 var response = await client.PostAsync(new Uri("http://172.19.73.179:8000/"), content);
+             }
+                 return bitmapImage;*/
+            BitmapImage bitmapImage = new BitmapImage();
+            filename = file.Name;
+            FileRandomAccessStream stream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
+            bitmapImage.SetSource(stream);
+            return bitmapImage;
         }
 
-        private async void EditLocal_Tapped()
+        private  async void selectButton_Click(object sender, RoutedEventArgs e)
         {
+
             FileOpenPicker fo = new FileOpenPicker();
             fo.FileTypeFilter.Add(".png");
             fo.FileTypeFilter.Add(".jpg");
@@ -47,31 +86,22 @@ namespace midterm_sql_byzfl
             BitmapImage img = new BitmapImage();
             img = await LoadImage(f);
             mypic.Source = img;
-           
-        }
-        private static async Task<BitmapImage> LoadImage(StorageFile file)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            FileRandomAccessStream stream = (FileRandomAccessStream)await file.OpenAsync(FileAccessMode.Read);
-
-            bitmapImage.SetSource(stream);
-
-            return bitmapImage;
-
-        }
-        private void selectButton_Click(object sender, RoutedEventArgs e)
-        {
-            EditLocal_Tapped();
         }
 
         private async void Submit_ClickAsync()
         {
+            
             //UserName Validation  
             if (!Regex.IsMatch(TxtUserName.Text.Trim(), @"^[A-Za-z_][a-zA-Z0-9_\s]*$"))
             {
                 var dialog = new MessageDialog("Invalid UserName");
                 await dialog.ShowAsync();
                
+            }
+            else if(textsmscode.Text != sendcode)
+            {
+                var dialog = new MessageDialog("Invalid SMScode");
+                await dialog.ShowAsync();
             }
 
             //Password length Validation  
@@ -95,7 +125,6 @@ namespace midterm_sql_byzfl
                 var dialog = new MessageDialog("Invalid EmailId");
                 await dialog.ShowAsync();
             }
-
             //After validation success ,store user detials in isolated storage  
             else if (TxtUserName.Text != "" && TxtPwd.Password != "" &&  TxtEmail.Text != "" &&   TxtPhNo.Text != "")
             {
@@ -103,7 +132,7 @@ namespace midterm_sql_byzfl
                 {
                     var dialog = new MessageDialog("Congrats! your have successfully Registered.");
                     await dialog.ShowAsync();
-                    userManager.Insert(new userItem(TxtUserName.Text, TxtPwd.Password, 0, TxtUserName.Text, "", ""));
+                    userManager.Insert(new userItem(TxtUserName.Text, TxtPwd.Password, 1, filename,TxtPhNo.Text, TxtEmail.Text));
                     Frame.Navigate(typeof(ServicePage));
                 }
                 else
@@ -111,7 +140,6 @@ namespace midterm_sql_byzfl
                     var dialog = new MessageDialog("Sorry! user name is already existed.");
                     await dialog.ShowAsync();
                 }
-
             }
             else
             {
@@ -123,6 +151,40 @@ namespace midterm_sql_byzfl
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             Submit_ClickAsync();
+        }
+
+       
+        public YunpianClient sendsms()
+        {
+            //初始化clnt,使用单例方式
+            var clnt = new YunpianClient(apiKey).Init();
+            var rannumber = registerhelper.GetRandomString(6);
+            sendcode = rannumber;
+            //发送短信API
+            var param = new Dictionary<string, string>
+            {
+                [Const.Mobile] = TxtPhNo.Text,
+                [Const.Text] = "【元昊提醒您】您的验证码是" + rannumber
+            };
+            var r = clnt.Sms().SingleSend(param);
+            clnt.Dispose();
+            return clnt;
+        }
+    
+        private void btnCode_Click(object sender, RoutedEventArgs e)
+        {
+            sendsms();
+        }
+
+        private void sendcode_Click(object sender, RoutedEventArgs e)
+        {
+            var tmp = sendsms();
+            if (CountDown.stTimeCount > 0)
+            {
+                CountDown.ShowCountDown(btnCode, CountDown.stTimeCount);
+            }
+            
+            note.Text = "验证码已发送至" + TxtPhNo.Text;
         }
     }
 }

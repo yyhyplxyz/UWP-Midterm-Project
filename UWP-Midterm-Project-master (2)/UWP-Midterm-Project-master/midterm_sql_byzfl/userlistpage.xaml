@@ -35,6 +35,11 @@
                        FontSize="18"
                        FontWeight="Bold"
                        Margin="20,10,0,0" />
+            <TextBlock Name="UserName" 
+                       RelativePanel.RightOf="TitleTextBlock"
+                       FontSize="13"
+                       FontWeight="Bold"
+                       Margin="20,10,0,0" />
 
         </RelativePanel>
         <SplitView Name="MySplitView" 

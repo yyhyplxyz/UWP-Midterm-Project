@@ -208,7 +208,7 @@ namespace midterm_project
 
         private void testShare_Click(object sender, RoutedEventArgs e)
         {
-            shareManager.shareIt("title", "description", "zhangflu is handsome!\n Wow! handsome boy!", null);
+            //shareManager.shareIt("title", "description", "zhangflu is handsome!\n Wow! handsome boy!", null);
         }
     }
 }

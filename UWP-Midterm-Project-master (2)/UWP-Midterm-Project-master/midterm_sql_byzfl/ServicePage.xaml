@@ -53,17 +53,19 @@
                        Margin="20,10,0,0" />
 
             <TextBlock Name="UserName" 
-                       RelativePanel.LeftOf="MyAutoSuggestBox"
+                       RelativePanel.LeftOf="mySearchBox"
                        FontSize="13"
                        FontWeight="Bold"
                        Margin="20,10,0,0" />
-
-            <AutoSuggestBox Name="MyAutoSuggestBox"
-                            QueryIcon="Find" 
+            <SearchBox x:Name="mySearchBox" 
+                            FocusOnKeyboardInput="False"
+                            QuerySubmitted="mySearchBox_QuerySubmitted"
                             PlaceholderText="Search" 
                             RelativePanel.AlignRightWithPanel="True"
-                            Width="200"
-                            Margin="0,5,10,0" />
+                          
+                             Width="200"
+                            Margin="0,5,10,0"/>
+        
         </RelativePanel>
 
         <SplitView Name="MySplitView" 
@@ -99,7 +101,7 @@
                     <ListBoxItem Name="Drink">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="&#xE80F;"
+                                Text="&#xE899;"
                                 FontFamily="Segoe MDL2 Assets" 
                                 FontSize="20" />
                             <TextBlock Text="Drink" 
@@ -110,7 +112,7 @@
                     <ListBoxItem Name="ADD">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="&#xE80F;"
+                                Text="&#xE8F4;"
                                 FontFamily="Segoe MDL2 Assets" 
                                 FontSize="20" />
                             <TextBlock Text="Add Device" 
@@ -118,7 +120,7 @@
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem IsEnabled="False" Padding="0,200,0,200">
+                    <ListBoxItem IsEnabled="False" Padding="0,100,0,100">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                 Text="—————————"

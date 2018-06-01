@@ -137,12 +137,7 @@
     </Compile>
     <Compile Include="PeopleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterPage.xaml.cs">
-      <DependentUpon>RegisterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Savemenu.xaml.cs">
-      <DependentUpon>Savemenu.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="RegisterPage.xaml.cs" />
     <Compile Include="Services\QSF.Common\CommonStrings.cs" />
     <Compile Include="Services\QSF.Common\Converters\StringToUpperConverter.cs" />
     <Compile Include="Services\QSF.Common\DelegateCommand.cs" />
@@ -176,7 +171,6 @@
     <Compile Include="Services\materialManager.cs" />
     <Compile Include="Services\menuManager.cs" />
     <Compile Include="Services\safeManager.cs" />
-    <Compile Include="Services\shareManager.cs" />
     <Compile Include="Services\userManager.cs" />
     <Compile Include="SettingDialog.xaml.cs">
       <DependentUpon>SettingDialog.xaml</DependentUpon>
@@ -189,7 +183,12 @@
       <DependentUpon>userlistpage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AccountHelper.cs" />
+    <Compile Include="Utils\CountDown.cs" />
     <Compile Include="Utils\MicrosoftPassportHelper.cs" />
+    <Compile Include="Utils\PrimaryTile.cs" />
+    <Compile Include="Utils\registerhelper.cs" />
+    <Compile Include="Utils\TileManager.cs" />
+    <Compile Include="Utils\TileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -198,6 +197,10 @@
     <None Include="midterm_sql_byzfl_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\11.png" />
+    <Content Include="Assets\11.scale-200.png" />
+    <Content Include="Assets\33.png" />
+    <Content Include="Assets\22.png" />
     <Content Include="Assets\weather\0.png" />
     <Content Include="Assets\weather\1.png" />
     <Content Include="Assets\weather\2.png" />
@@ -208,7 +211,6 @@
     <Content Include="Assets\weather\7.png" />
     <Content Include="Assets\zzz.jpeg" />
     <Content Include="Assets\Financial1.png" />
-    <Content Include="Financial1.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -218,6 +220,13 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Services\QSF.Common\QSF.Common.csproj" />
+    <Content Include="Assets\凉拌土豆丝.jpg" />
+    <Content Include="Assets\油闷大虾.jpg" />
+    <Content Include="Assets\盐煎肉.jpg" />
+    <Content Include="Assets\糖醋排骨.jpg" />
+    <Content Include="Assets\红烧肉.jpg" />
+    <Content Include="Assets\红烧鸡块.jpg" />
+    <Content Include="Assets\西红柿炒鸡蛋.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -265,12 +274,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegisterPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Savemenu.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Services\QSF.Common\Examples\GalleryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -327,6 +332,9 @@
     </PackageReference>
     <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
       <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Yunpian.Sdk">
+      <Version>0.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -49,11 +49,13 @@
                        TextWrapping="Wrap" />
             <TextBlock Text="{x:Bind mymenuItem.description}" 
                        RelativePanel.Below="HeadlineTextBlock" 
-                       TextWrapping="Wrap" />
+                       TextWrapping="Wrap" FontSize="14" />
             <TextBlock Text="{x:Bind mymenuItem.price}" 
                        RelativePanel.AlignBottomWithPanel="True" 
-                       FontSize="10" x:Name="Pri"/>
-            <Button Content="Order" RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignBottomWithPanel="True"  DataContext="Order" Click="Button_Click" FontSize="10" Background="LightGray" />
+                       FontSize="14" x:Name="Pri"/>
+            <Button x:Name="orderbutton" Content="Order" RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignBottomWithPanel="True"  DataContext="Order" Click="Button_Click" FontSize="14" Background="LightGray" />
+            <Button Content="Share" RelativePanel.AlignLeftWith="orderbutton"   DataContext="Share" Click="Button_Click_1"  FontSize="14" Background="LightGray" />
+
         </RelativePanel>
     
     </Grid>

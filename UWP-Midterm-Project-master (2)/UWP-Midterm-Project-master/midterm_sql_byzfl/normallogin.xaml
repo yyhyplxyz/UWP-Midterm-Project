@@ -30,7 +30,7 @@
         Click="PassportSignInButton_Click" Width="80" HorizontalAlignment="Center" Margin="0,20"/>
             <TextBlock Text="Don't have an account?"
                 TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-            <TextBlock x:Name="RegisterButtonTextBlock" Text="Contact the administer now"
+            <TextBlock x:Name="RegisterButtonTextBlock" Text="Go to Register page now"
                PointerPressed="RegisterButtonTextBlock_OnPointerPressed"
                Foreground="DodgerBlue"
                TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>

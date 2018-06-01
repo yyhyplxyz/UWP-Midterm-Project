@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 using midterm_sql_byzfl.Utils;
 using midterm_project.Services;
 using System.Text.RegularExpressions;
+using midterm_sql_byzfl.Services;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage.Streams;
 
 //https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
@@ -39,28 +42,43 @@ namespace midterm_sql_byzfl
             string number = await InputTextDialogAsync("数量");
             if (Regex.IsMatch(number, @"^\d+$"))
             {
-                var tmp = menuManager.ServeMenuItem(mymenuItem.menuName);
-                bool issuccessed = tmp.serveSucessed;
-                if (!issuccessed)
+                int numericalnumber = Int32.Parse(number);
+                for(int g = 0; g < numericalnumber; g++)
                 {
-                    var toneedname = tmp.needMaterialName;
-                    var toneednumber = tmp.needMaterialNumber;
+                    var tmp = menuManager.ServeMenuItem(mymenuItem.menuName);
+                    bool issuccessed = tmp.serveSucessed;
 
-                    string toshow = "";
-                    for (int i = 0; i < toneedname.Count(); i++)
+                    if (!issuccessed)
                     {
-                        toshow += toneedname[i] + " : " + toneednumber[i] + "\n";
+                        var toneedname = tmp.needMaterialName;
+                        var toneednumber = tmp.needMaterialNumber;
+                        var badmaterial = tmp.DeterioratedName;
+                        string toshow = "";
+                        for (int i = 0; i < toneedname.Count(); i++)
+                        {
+                            toshow += toneedname[i] + " : " + toneednumber[i] + "\n";
+                          
+                        }
+                        if(badmaterial.Count() != 0)
+                        {
+                            toshow += "过期了的材料:\n";
+                            for (int i = 0; i < badmaterial.Count(); i++)
+                            {
+                                toshow += badmaterial[i];
+                                toshow += " ";
+                            }
+                        }
+                        var dialog = new ContentDialog
+                        {
+                            Title = "Notice",
+                            Content = "这份订单还差一些材料\n" +
+                               toshow,
+                            IsPrimaryButtonEnabled = true,
+                            PrimaryButtonText = "OK",
+                        };
+                        await dialog.ShowAsync();
+                        return;
                     }
-                    var dialog = new ContentDialog
-                    {
-                        Title = "Notice",
-                        Content = "这道菜还差一些材料\n" +
-                           toshow,
-                        IsPrimaryButtonEnabled = true,
-                        PrimaryButtonText = "OK",
-                    };
-                    await dialog.ShowAsync();
-
                 }
             }
             else
@@ -91,6 +109,27 @@ namespace midterm_sql_byzfl
                 return inputTextBox.Text;
             else
                 return "";
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(this.onShareDataRequested);
+            //shareManager.shareIt("title", "description", "zhangflu is handsome!\n Wow! handsome boy!", null);
+        }
+        private void onShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var dp = args.Request.Data;
+            var def = args.Request.GetDeferral();
+            RandomAccessStreamReference photo;
+            photo = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///" + mymenuItem.Image));
+            dp.Properties.Title = mymenuItem.menuName;
+            dp.Properties.Description = mymenuItem.description;
+            dp.SetBitmap(photo);
+            dp.SetText(mymenuItem.Category);
+            def.Complete();
         }
     }
 }

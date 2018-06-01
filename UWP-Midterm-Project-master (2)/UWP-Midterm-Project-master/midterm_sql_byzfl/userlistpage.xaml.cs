@@ -38,7 +38,7 @@ namespace midterm_sql_byzfl
         {
             this.Data = this.LoadData();
         }
-
+        
         private ObservableCollection<userItem> LoadData()
         {
             var data = new ObservableCollection<userItem>();
@@ -82,7 +82,15 @@ namespace midterm_sql_byzfl
             InitializeComponent();
             this.DataContext = new materialEditingViewModel();
         }
-
+        private userItem thisuser;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            thisuser = (userItem)e.Parameter;
+            UserName.Text = "Hello " + thisuser.UserName + "!";
+            
+        }
+    
         private void ViewDetails_Click(object sender, RoutedEventArgs e)
         {
             
