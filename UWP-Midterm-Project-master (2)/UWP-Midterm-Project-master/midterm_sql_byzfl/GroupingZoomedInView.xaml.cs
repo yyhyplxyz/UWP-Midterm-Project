@@ -29,7 +29,7 @@ namespace midterm_sql_byzfl
     public sealed partial class GroupingZoomedInView : UserControl, ISemanticZoomInformation
     {
         PeopleViewModel peopleViewModel;
-       
+
         public GroupingZoomedInView()
         {
             this.InitializeComponent();
@@ -77,7 +77,7 @@ namespace midterm_sql_byzfl
 
         public void MakeVisible(SemanticZoomLocation item)
         {
-           
+
         }
 
         public SemanticZoom SemanticZoomOwner
@@ -108,7 +108,7 @@ namespace midterm_sql_byzfl
 
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            userItem newItem = new userItem("samplename", " ", 0, "", "", "");
+            userItem newItem = new userItem("333", "233", 1, "picture", "phone", "email");
             peopleViewModel.staticData.Add(newItem);
             dataGrid.SelectItem(newItem);
             dataGrid.ScrollItemIntoView(newItem, () =>
@@ -136,7 +136,7 @@ namespace midterm_sql_byzfl
 
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
-            
+
         }
         private void CustomerSearchBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -147,7 +147,7 @@ namespace midterm_sql_byzfl
                 CustomerSearchBox.AutoSuggestBox.PlaceholderText = "Search users...";
             }
 
-            
+
         }
         private async void CustomerSearchBox_TextChanged(AutoSuggestBox sender,
             AutoSuggestBoxTextChangedEventArgs args)
@@ -156,7 +156,7 @@ namespace midterm_sql_byzfl
             {
                 if (String.IsNullOrEmpty(sender.Text))
                 {
-                   // peopleViewModel.Load();
+                    // peopleViewModel.Load();
                     await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
                        await peopleViewModel.loadAsync());
                     //peopleViewModel.Load();
@@ -168,9 +168,9 @@ namespace midterm_sql_byzfl
                         StringSplitOptions.RemoveEmptyEntries);
                     sender.ItemsSource = peopleViewModel.staticData
                         .Where(x => parameters.Any(y =>
-                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) ))
+                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)))
                         .OrderByDescending(x => parameters.Count(y =>
-                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) 
+                            x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)
                            ))
                         .Select(x => $"{x.UserName} {x.Password}");
                 }
@@ -181,8 +181,8 @@ namespace midterm_sql_byzfl
         {
             if (String.IsNullOrEmpty(args.QueryText))
             {
-               await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
-                   await peopleViewModel.loadAsync());
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                    await peopleViewModel.loadAsync());
                 //sender.ItemsSource = peopleViewModel.staticData;
             }
             else
@@ -190,12 +190,12 @@ namespace midterm_sql_byzfl
                 string[] parameters = sender.Text.Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries);
 
-                var matches =peopleViewModel.staticData.Where(x => parameters
-                    .Any(y =>
-                        x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)
-                       ))
+                var matches = peopleViewModel.staticData.Where(x => parameters
+                     .Any(y =>
+                         x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)
+                        ))
                     .OrderByDescending(x => parameters.Count(y =>
-                        x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase) ))
+                        x.UserName.StartsWith(y, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
 
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
@@ -211,7 +211,7 @@ namespace midterm_sql_byzfl
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
-            if(dataGrid.SelectedItem != null)
+            if (dataGrid.SelectedItem != null)
             {
                 userItem i = (userItem)dataGrid.SelectedItem;
                 userManager.Remove(i.UserName);
@@ -243,16 +243,16 @@ namespace midterm_sql_byzfl
             }
             this.Owner.CommandService.ExecuteDefaultCommand(CommandId.FlyoutGroupHeaderTap, parameter);
         }
-       
+
     }
 
     public class selectviewmodel : ViewModelBase
     {
-         private ObservableCollection<userItem> selelectedGridItems;
+        private ObservableCollection<userItem> selelectedGridItems;
         public ObservableCollection<userItem> SelelectedGridItems
         {
             get { return selelectedGridItems ?? (selelectedGridItems = new ObservableCollection<userItem>()); }
-            set { selelectedGridItems = value;  OnPropertyChanged(); }
+            set { selelectedGridItems = value; OnPropertyChanged(); }
         }
         public void RadDataGrid_OnSelectionChanged(object sender, DataGridSelectionChangedEventArgs e)
         {
@@ -289,39 +289,15 @@ namespace midterm_sql_byzfl
             return true;
         }
 
-        public override async void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             var context = parameter as EditContext;
-            var i = (userItem)( context.CellInfo.Item);
-            if(i.Authority != 0 && i.Authority != 1)
-            {
-                var dialog = new ContentDialog
-                {
-                    Title = "Notice",
-                    Content = "权限只能是0或1",
-                    IsPrimaryButtonEnabled = true,
-                    PrimaryButtonText = "OK",
-                };
-                await dialog.ShowAsync();
-                return;
-            }
-            if(userManager.Insert(i))
-            {
-                this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
-            }
-            else
-            {
-                var dialog = new ContentDialog
-                {
-                    Title = "Notice",
-                    Content = "用户名不能重复",
-                    IsPrimaryButtonEnabled = true,
-                    PrimaryButtonText = "OK",
-                };
-                await dialog.ShowAsync();
-            }
+            var i = (userItem)(context.CellInfo.Item);
+            userManager.Insert(i);
+            // Executes the default implementation of this command
+            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
         }
     }
 
-  
+
 }

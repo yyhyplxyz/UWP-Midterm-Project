@@ -168,7 +168,7 @@ namespace midterm_sql_byzfl
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(normallogin));
+            Frame.Navigate(typeof(normallogin), new userItem("233"));
         }
     }
 }

@@ -30,13 +30,14 @@ namespace midterm_sql_byzfl
     public sealed partial class GroupingZoomedInViewmaterial : UserControl, ISemanticZoomInformation
     {
         materialViewModel peopleViewModel;
-
+        public static bool isadding;
         public GroupingZoomedInViewmaterial()
         {
             this.InitializeComponent();
             peopleViewModel = new materialViewModel();
             //oldview = new materialViewModel();
             this.DataContext = peopleViewModel;
+            isadding = false;
         }
 
         public void CompleteViewChange()
@@ -109,6 +110,7 @@ namespace midterm_sql_byzfl
 
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
+            isadding = true;
             //string Name, double Number, string Unit, DateTimeOffset PurchaseDate, double WarrantPeriod, double Price, string Comment
             materialItem newItem = new materialItem("samplename", 2, " ", DateTimeOffset.UtcNow, 1, 2, "0");
             peopleViewModel.staticData.Add(newItem);
@@ -257,7 +259,7 @@ namespace midterm_sql_byzfl
                 // Executes the default implementation of this command
                 this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
             }
-            else
+            else if(GroupingZoomedInViewmaterial.isadding == true)
             {
                 var dialog = new ContentDialog
                 {
@@ -268,7 +270,9 @@ namespace midterm_sql_byzfl
                 };
                 await dialog.ShowAsync();
             }
+            GroupingZoomedInViewmaterial.isadding = false;
         }
+        
     }
    
 }

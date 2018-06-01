@@ -35,12 +35,13 @@ namespace midterm_sql_byzfl
     public sealed partial class GroupingZoomedInViewmenu : UserControl, ISemanticZoomInformation
     {
         menuviewmodel peopleViewModel;
-
+        public static bool isadding;
         public GroupingZoomedInViewmenu()
         {
             this.InitializeComponent();
             peopleViewModel = new menuviewmodel();
             this.DataContext = peopleViewModel;
+            isadding = false;
         }
 
         public void CompleteViewChange()
@@ -114,9 +115,10 @@ namespace midterm_sql_byzfl
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
             List<String> tmp = new List<string>();
-            tmp.Add("233");
+            tmp.Add("");
             List<double> tmp2 = new List<double>();
-            tmp2.Add(1);
+            tmp2.Add(0);
+            isadding = false;
             menuItem newItem = new menuItem("samplename", tmp, tmp2, "Eastern", "", "", "100$");
             peopleViewModel.staticData.Add(newItem);
             dataGrid.SelectItem(newItem);
@@ -282,8 +284,9 @@ namespace midterm_sql_byzfl
             if (menuManager.Insert(i))
             {
                 this.Owner.CommandService.ExecuteDefaultCommand(CommandId.BeginEdit, context);
+                GroupingZoomedInViewmenu.isadding = false;
             }
-            else
+            else if(GroupingZoomedInViewmenu.isadding == true)
             {
                 var dialog = new ContentDialog
                 {
@@ -293,7 +296,9 @@ namespace midterm_sql_byzfl
                     PrimaryButtonText = "OK",
                 };
                 await dialog.ShowAsync();
+                GroupingZoomedInViewmenu.isadding = false;
             }
+            
         }
     }
 
