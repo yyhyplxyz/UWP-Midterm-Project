@@ -38,12 +38,12 @@ namespace midterm_sql_byzfl
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string number = await InputTextDialogAsync("数量");
             if (Regex.IsMatch(number, @"^\d+$"))
             {
                 int numericalnumber = Int32.Parse(number);
-                for(int g = 0; g < numericalnumber; g++)
+                for (int g = 0; g < numericalnumber; g++)
                 {
                     var tmp = menuManager.ServeMenuItem(mymenuItem.menuName);
                     bool issuccessed = tmp.serveSucessed;
@@ -57,9 +57,9 @@ namespace midterm_sql_byzfl
                         for (int i = 0; i < toneedname.Count(); i++)
                         {
                             toshow += toneedname[i] + " : " + toneednumber[i] + "\n";
-                          
+
                         }
-                        if(badmaterial.Count() != 0)
+                        if (badmaterial != null &&  badmaterial.Count() != 0)
                         {
                             toshow += "过期了的材料:\n";
                             for (int i = 0; i < badmaterial.Count(); i++)
@@ -68,7 +68,7 @@ namespace midterm_sql_byzfl
                                 toshow += " ";
                             }
                         }
-                        var dialog = new ContentDialog
+                        var con_dialog = new ContentDialog
                         {
                             Title = "Notice",
                             Content = "这份订单还差一些材料\n" +
@@ -76,10 +76,18 @@ namespace midterm_sql_byzfl
                             IsPrimaryButtonEnabled = true,
                             PrimaryButtonText = "OK",
                         };
-                        await dialog.ShowAsync();
+                        await con_dialog.ShowAsync();
                         return;
                     }
                 }
+                var dialog = new ContentDialog
+                {
+                    Title = "Congratulations",
+                    Content = "点菜成功",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
             }
             else
             {
@@ -109,7 +117,7 @@ namespace midterm_sql_byzfl
                 return inputTextBox.Text;
             else
                 return "";
-            
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

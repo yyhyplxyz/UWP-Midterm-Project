@@ -92,7 +92,7 @@ namespace midterm_sql_byzfl
            
 
             //Phone Number Length Validation  
-            else if (TxtPhNo.Text.Length != 10)
+            else if (TxtPhNo.Text.Length != 11)
             {
                 var dialog = new MessageDialog("Invalid PhonNo");
                 await dialog.ShowAsync();

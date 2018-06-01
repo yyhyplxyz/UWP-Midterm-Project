@@ -45,7 +45,8 @@ namespace midterm_project.Services
         //插入给定的项，成功返回true，失败意味着已经有重复名称的项存在
         public static bool Insert(materialItem aim)
         {
-            aim.purchaseDate = aim.showdate;
+            //aim.purchaseDate = aim.showdate;
+            aim.purchaseDate = new DateTimeOffset(aim.showdate, TimeSpan.Zero); 
             if (GetAItem(aim.name) != null)
                 return false;
             // SqlConnection was opened in App.xaml.cs and exposed through property conn

@@ -108,7 +108,7 @@ namespace midterm_sql_byzfl
 
         private void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            userItem newItem = new userItem("333", "233", 1, "picture", "phone", "email");
+            userItem newItem = new userItem("samplename", " ", 0, "", "", "");
             peopleViewModel.staticData.Add(newItem);
             dataGrid.SelectItem(newItem);
             dataGrid.ScrollItemIntoView(newItem, () =>
@@ -289,13 +289,37 @@ namespace midterm_sql_byzfl
             return true;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             var context = parameter as EditContext;
             var i = (userItem)( context.CellInfo.Item);
-            userManager.Insert(i);
-            // Executes the default implementation of this command
-            this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
+            if(i.Authority != 0 && i.Authority != 1)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "权限只能是0或1",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
+                return;
+            }
+            if(userManager.Insert(i))
+            {
+                this.Owner.CommandService.ExecuteDefaultCommand(CommandId.CommitEdit, context);
+            }
+            else
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Notice",
+                    Content = "用户名不能重复",
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                };
+                await dialog.ShowAsync();
+            }
         }
     }
 
