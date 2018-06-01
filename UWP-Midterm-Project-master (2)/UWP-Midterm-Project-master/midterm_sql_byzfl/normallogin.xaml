@@ -7,35 +7,32 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"  />
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/t.jpg"/>
+    </Page.Background>
+
+    <Grid>
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <TextBlock Text="Login" FontSize="36" Margin="4" TextAlignment="Center"/>
+            <TextBlock Text="登陆" FontSize="36" Margin="4" TextAlignment="Center"/>
             <TextBlock x:Name="ErrorMessage" Text="" FontSize="20" Margin="4" Foreground="Red" TextAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                
                 <TextBlock Text="账  户："/>
-
                 <TextBox x:Name="username"  PlaceholderText="请输入您的账户" Width="240"/>
-                
             </StackPanel>
-
             <StackPanel Margin="0,4" Orientation="Horizontal" HorizontalAlignment="Center">
-                
                 <TextBlock Text="密  码："/>
-
                 <PasswordBox x:Name="passw"  PlaceholderText="请输入您的密码"  Width="240"/>
-                
             </StackPanel>
-            <Button x:Name="PassportSignInButton" Content="Login" Background="DodgerBlue" Foreground="White"
+            <Button x:Name="PassportSignInButton" Content="登陆" Background="DodgerBlue" Foreground="White"
         Click="PassportSignInButton_Click" Width="80" HorizontalAlignment="Center" Margin="0,20"/>
-            <TextBlock Text="Don't have an account?"
+            <Button x:Name="BackButton" BorderBrush="Transparent" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}" HorizontalAlignment="Center" />
+            <TextBlock Text="没有账户？"
                 TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-            <TextBlock x:Name="RegisterButtonTextBlock" Text="Go to Register page now"
+            <TextBlock x:Name="RegisterButtonTextBlock" Text="现在就去注册"
                PointerPressed="RegisterButtonTextBlock_OnPointerPressed"
                Foreground="DodgerBlue"
                TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-       
+
         </StackPanel>
     </Grid>
 </Page>

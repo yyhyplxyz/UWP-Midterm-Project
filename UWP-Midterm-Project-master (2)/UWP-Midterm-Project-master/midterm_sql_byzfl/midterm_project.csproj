@@ -198,6 +198,8 @@
     <Content Include="Assets\11.scale-200.png" />
     <Content Include="Assets\33.png" />
     <Content Include="Assets\22.png" />
+    <Content Include="Assets\mainlogo.scale-400.png" />
+    <Content Include="Assets\t.jpg" />
     <Content Include="Assets\weather\0.png" />
     <Content Include="Assets\weather\1.png" />
     <Content Include="Assets\weather\2.png" />

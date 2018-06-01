@@ -7,11 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mygrid">
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/t.jpg"/>
+    </Page.Background>
 
+    <Grid Background="White" Name="mygrid">
 
         <StackPanel Orientation="Vertical">
-            <TextBlock x:Name="Title" Text="欢迎来到餐饮管理系统" FontSize="40" TextAlignment="Center"/>
+            <TextBlock x:Name="Title" Text="欢迎来到餐饮管理系统" FontSize="24" TextAlignment="Center" Margin="0,50,0,0" FontWeight="Bold"/>
+            <TextBlock  Text="请选择登陆方式" FontSize="16" TextAlignment="Center" Margin="0,17,0,0" FontWeight="Bold"/>
             <TextBlock x:Name="UserNameText" FontSize="28" TextAlignment="Center" Foreground="Black"/>
             <Button x:Name="NormalLoginButton" Content="账号密码登录" Click="NormalLoginButton_Click"
             HorizontalAlignment="Center" Margin="0,20" Foreground="White" Background="DodgerBlue"/>

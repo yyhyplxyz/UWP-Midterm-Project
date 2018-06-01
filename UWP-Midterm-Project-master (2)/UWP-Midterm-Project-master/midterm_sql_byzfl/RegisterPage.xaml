@@ -7,9 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="White">
-        
-        <Grid Margin="5,0,0,0">
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/t.jpg"/>
+    </Page.Background>
+    
+    <Grid x:Name="LayoutRoot">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -22,35 +25,34 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"  />
-            <TextBlock Text="User Registration :" Grid.Row="0" FontSize="40" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="Black"/>
+            <Button x:Name="BackButton" BorderBrush="Transparent" Grid.Row="0" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}" HorizontalAlignment="Right"  />
+            <TextBlock Text="Registration" Grid.Row="0" FontSize="24" Grid.ColumnSpan="3" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
         
-            <Image x:Name="mypic" Grid.Row="1" Source="Assets/Financial1.png" Width="250" Height="250" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+            <Image x:Name="mypic" Grid.Row="1" Source="Assets/Financial1.png" Width="150" Height="150" Grid.ColumnSpan="3" Stretch="UniformToFill"/>
 
-            <AppBarButton x:Name="SelectPictureButton"  Icon="Pictures" Label="select"  Click="selectButton_Click" Grid.Row="1" Grid.Column="2"/>
-            <TextBlock x:Name="note" Text="请填写手机号以接受验证码" Grid.Row="2" Foreground="Black" HorizontalAlignment="Center" Grid.ColumnSpan="3" Margin="0,25,0,0"/>
+            <AppBarButton x:Name="SelectPictureButton"  Icon="Pictures" Label="select"  Click="selectButton_Click" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="note" Text="请填写手机号以接受短信验证码" Grid.Row="2" Foreground="Black" HorizontalAlignment="Center" Grid.ColumnSpan="3" Margin="0,25,0,0" VerticalAlignment="Center"/>
             <!--UserName-->
-            <TextBlock Text="UserName :" Grid.Row="3" Foreground="Black" Grid.Column="0"  Margin="0,15,0,0"  HorizontalAlignment="Center"/>
-            <TextBox Name="TxtUserName" BorderBrush="LightGray" Grid.Row="3"  Grid.Column="1" Margin="100,0,0,0" />
+            <TextBlock Text="用户名" Grid.Row="3" Foreground="Black" Grid.Column="0"   HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox Name="TxtUserName" BorderBrush="LightGray" Grid.Row="3"  Grid.Column="1" Margin="50,5,50,5"  />
 
             <!--Password-->
-            <TextBlock Text="Password: " Grid.Row="4" Margin="0,25,0,0" Foreground="Black" HorizontalAlignment="Center" />
-            <PasswordBox Name="TxtPwd" Grid.Column="1" BorderBrush="LightGray" Grid.Row="4" Margin="100,0,0,0"  />
-            <TextBlock Text="Phone No: " Margin="0,25,0,0" Foreground="Black" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center"/>
-            <TextBox Name="TxtPhNo"  BorderBrush="LightGray" MaxLength="11" Grid.Column="1" Grid.Row="5" Margin="100,0,0,0" />
+            <TextBlock Text="密码" Grid.Row="4" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+            <PasswordBox Name="TxtPwd" Grid.Column="1" BorderBrush="LightGray" Grid.Row="4" Margin="50,5,100,5"  />
+            <TextBlock Text="手机号码" Foreground="Black" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox Name="TxtPhNo"  BorderBrush="LightGray" MaxLength="11" Grid.Column="1" Grid.Row="5" Margin="50,5,50,5" />
             <Button x:Name="sendcodebutton" Grid.Column="2" Grid.Row="5" Content="发送验证码" Click="sendcode_Click"/>
-            <TextBlock Text="输入验证码" Grid.Row="6" Grid.Column="0" Foreground="Black"   Margin="0,25,0,0" HorizontalAlignment="Center"/>
-            <TextBox Name="textsmscode"  Grid.Row="6" Grid.Column="1" BorderBrush="LightGray"  Margin="100,0,0,0" />
+            <TextBlock Text="输入验证码" Grid.Row="6" Grid.Column="0" Foreground="Black" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox Name="textsmscode"  Grid.Row="6" Grid.Column="1" BorderBrush="LightGray"  Margin="50,5,50,5" />
             <Button x:Name="btnCode" Click="btnCode_Click" Content="输入倒计时" Grid.Row="6" Grid.Column="2" />
             <!--Email-->
-            <TextBlock Text="EmaiID: " Grid.Row="7" Margin="0,25,0,0" Foreground="Black" HorizontalAlignment="Center" />
-            <TextBox Name="TxtEmail" Grid.Column="1" BorderBrush="LightGray" Grid.Row="7" Margin="100,0,0,0" />
-
-            <Button BorderBrush="Transparent"  Content="Submit"  Name="BtnSubmit" Click="Submit_Click" Grid.Row="8" Grid.ColumnSpan="1" HorizontalAlignment="Center" />
+            <TextBlock Text="邮箱" Grid.Row="7" Foreground="Black" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" />
+            <TextBox Name="TxtEmail" Grid.Column="1" BorderBrush="LightGray" Grid.Row="7" Margin="50,5,50,5" />
+            <Button BorderBrush="Transparent"  Content="提交"  Name="BtnSubmit" Click="Submit_Click" Grid.Row="8" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
         
         </Grid>
     </Grid>
